@@ -191,9 +191,9 @@ const App = () => {
               Product Design Strategic Report
             </div>
             <h1 className="text-6xl md:text-9xl font-black text-slate-900 mb-10 tracking-tighter leading-[0.85]">
-              智能体组成的 <br />
+              华创云信 <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-violet-600 to-indigo-600">
-                生产系统
+                AI超级应用生态
               </span>
             </h1>
             <p className="text-xl md:text-3xl text-slate-500 max-w-4xl mx-auto leading-relaxed mb-16 font-medium tracking-tight">
