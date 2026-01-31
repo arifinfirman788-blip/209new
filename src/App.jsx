@@ -250,19 +250,14 @@ const App = () => {
                 ))}
               </div>
               <div className="lg:col-span-5 sticky top-32">
-                <div className="relative mx-auto w-full aspect-[4/3] bg-slate-900 rounded-[32px] border-[12px] border-slate-800 shadow-2xl overflow-hidden group">
-                  {/* PC 浏览器顶部栏 */}
-                  <div className="absolute top-0 left-0 right-0 h-8 bg-slate-800 flex items-center px-4 gap-1.5 z-20">
-                    <div className="w-2.5 h-2.5 rounded-full bg-red-500/50" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-amber-500/50" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/50" />
-                    <div className="ml-4 h-4 w-48 bg-slate-700/50 rounded-md" />
-                  </div>
-                  
-                  <div className="absolute inset-0 pt-8 bg-slate-100 flex flex-col items-center justify-center overflow-hidden">
-                    <img src="/131new/image/1-1.png" alt="三层架构管理后台" className="w-full h-full object-contain" />
-                  </div>
-                </div>
+                <a 
+                  href="https://arifinfirman788-blip.github.io/2026NeiBu/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="block relative mx-auto w-full rounded-2xl overflow-hidden shadow-xl border border-slate-200 group transition-all hover:shadow-2xl hover:scale-[1.01]"
+                >
+                  <img src="/131new/image/1-1.png" alt="三层架构管理后台" className="w-full h-auto block" />
+                </a>
                 {/* 底座示意 */}
                 <div className="w-32 h-3 bg-slate-800/20 mx-auto mt-4 rounded-full blur-sm" />
               </div>
@@ -309,12 +304,14 @@ const App = () => {
               </div>
 
               <div className="lg:col-span-5 sticky top-32">
-                <div className="relative mx-auto w-[320px] h-[640px] bg-slate-900 rounded-[60px] border-[12px] border-slate-800 shadow-2xl overflow-hidden group">
-                  <div className="absolute inset-0 bg-slate-100 overflow-hidden">
-                    <img src="/131new/image/1-2.png" alt="新版首页舞台" className="w-full h-full object-contain" />
-                  </div>
-                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-8 bg-slate-800 rounded-b-3xl" />
-                </div>
+                <a 
+                  href="https://arifinfirman788-blip.github.io/HuangxiaoxiV4.0" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="block relative mx-auto w-[320px] rounded-[40px] overflow-hidden shadow-xl border border-slate-200 group transition-all hover:shadow-2xl hover:scale-[1.01]"
+                >
+                  <img src="/131new/image/1-2.png" alt="新版首页舞台" className="w-full h-auto block" />
+                </a>
               </div>
             </div>
 
@@ -361,12 +358,14 @@ const App = () => {
               </div>
 
               <div className="lg:col-span-5 sticky top-32">
-                <div className="relative mx-auto w-[320px] h-[640px] bg-slate-900 rounded-[60px] border-[12px] border-slate-800 shadow-2xl overflow-hidden group">
-                  <div className="absolute inset-0 bg-slate-100 overflow-hidden">
-                    <img src="/131new/image/1-3.png" alt="需求预判交互界面" className="w-full h-full object-contain" />
-                  </div>
-                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-8 bg-slate-800 rounded-b-3xl" />
-                </div>
+                <a 
+                  href="https://arifinfirman788-blip.github.io/HuangxiaoxiV4.0/trip/undefined" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="block relative mx-auto w-[320px] rounded-[40px] overflow-hidden shadow-xl border border-slate-200 group transition-all hover:shadow-2xl hover:scale-[1.01]"
+                >
+                  <img src="/131new/image/1-3.png" alt="需求预判交互界面" className="w-full h-auto block" />
+                </a>
               </div>
             </div>
           </div>
@@ -471,11 +470,8 @@ const App = () => {
               </div>
 
               <div className="lg:col-span-5 sticky top-32">
-                <div className="relative mx-auto w-[300px] h-[600px] bg-slate-900 rounded-[50px] border-[10px] border-slate-800 shadow-2xl overflow-hidden group">
-                  <div className="absolute inset-0 bg-slate-50 overflow-hidden">
-                    <img src="/131new/image/2-1.png" alt="酒店智能体门户展示" className="w-full h-full object-contain" />
-                  </div>
-                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-6 bg-slate-800 rounded-b-2xl" />
+                <div className="relative mx-auto w-[300px] rounded-[32px] overflow-hidden shadow-xl border border-slate-200 group transition-all hover:shadow-2xl">
+                  <img src="/131new/image/2-1.png" alt="酒店智能体门户展示" className="w-full h-auto block" />
                 </div>
               </div>
             </div>
@@ -525,11 +521,8 @@ const App = () => {
               </div>
 
               <div className="lg:col-span-5 sticky top-32">
-                <div className="relative mx-auto w-[300px] h-[600px] bg-slate-800 rounded-[50px] border-[10px] border-slate-700 shadow-2xl overflow-hidden group">
-                  <div className="absolute inset-0 bg-white overflow-hidden">
-                    <img src="/131new/image/2-2.png" alt="“酒店入驻助手”界面" className="w-full h-full object-contain" />
-                  </div>
-                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-6 bg-slate-700 rounded-b-2xl" />
+                <div className="relative mx-auto w-[300px] rounded-[32px] overflow-hidden shadow-xl border border-slate-200 group transition-all hover:shadow-2xl">
+                  <img src="/131new/image/2-2.png" alt="“酒店入驻助手”界面" className="w-full h-auto block" />
                 </div>
               </div>
             </div>
@@ -595,15 +588,8 @@ const App = () => {
 
               <div className="lg:col-span-5 sticky top-32">
                 {/* PC端预览 */}
-                <div className="relative w-full aspect-[16/10] bg-slate-900 rounded-[32px] border-[10px] border-slate-800 shadow-2xl overflow-hidden group">
-                  <div className="absolute inset-0 bg-slate-50 overflow-hidden">
-                    <img src="/131new/image/2-3.png" alt="PC端协同管理后台" className="w-full h-full object-contain" />
-                  </div>
-                  <div className="absolute top-0 left-0 right-0 h-6 bg-slate-800 flex items-center px-4 gap-1.5">
-                    <div className="w-2 h-2 bg-red-400 rounded-full" />
-                    <div className="w-2 h-2 bg-amber-400 rounded-full" />
-                    <div className="w-2 h-2 bg-emerald-400 rounded-full" />
-                  </div>
+                <div className="relative w-full rounded-2xl overflow-hidden shadow-xl border border-slate-200 group transition-all hover:shadow-2xl">
+                  <img src="/131new/image/2-3.png" alt="PC端协同管理后台" className="w-full h-auto block" />
                 </div>
               </div>
             </div>
@@ -662,10 +648,8 @@ const App = () => {
               </div>
 
               <div className="lg:col-span-5 sticky top-32">
-                <div className="relative w-full aspect-square bg-slate-900 rounded-[48px] border-[12px] border-slate-800 shadow-2xl overflow-hidden group">
-                  <div className="absolute inset-0 bg-slate-50 overflow-hidden">
-                    <img src="/131new/image/2-4.png" alt="硬件交互载体截图" className="w-full h-full object-contain" />
-                  </div>
+                <div className="relative w-full rounded-3xl overflow-hidden shadow-xl border border-slate-200 group transition-all hover:shadow-2xl">
+                  <img src="/131new/image/2-4.png" alt="硬件交互载体截图" className="w-full h-auto block" />
                 </div>
               </div>
             </div>
@@ -712,11 +696,8 @@ const App = () => {
               </div>
 
               <div className="lg:col-span-5 sticky top-32">
-                <div className="relative mx-auto w-[300px] h-[600px] bg-slate-900 rounded-[50px] border-[10px] border-slate-800 shadow-2xl overflow-hidden group">
-                  <div className="absolute inset-0 bg-white overflow-hidden">
-                    <img src="/131new/image/2-5.png" alt="电商交易闭环截图" className="w-full h-full object-contain" />
-                  </div>
-                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-6 bg-slate-800 rounded-b-2xl" />
+                <div className="relative mx-auto w-[300px] rounded-[32px] overflow-hidden shadow-xl border border-slate-200 group transition-all hover:shadow-2xl">
+                  <img src="/131new/image/2-5.png" alt="电商交易闭环截图" className="w-full h-auto block" />
                 </div>
               </div>
             </div>
@@ -774,11 +755,8 @@ const App = () => {
             </div>
 
             <div className="lg:col-span-5 sticky top-32">
-              <div className="relative mx-auto w-[300px] h-[600px] bg-slate-900 rounded-[50px] border-[10px] border-slate-800 shadow-2xl overflow-hidden group">
-                <div className="absolute inset-0 bg-white overflow-hidden">
-                  <img src="/131new/image/3-1.png" alt="个人智能体交互界面" className="w-full h-full object-contain" />
-                </div>
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-6 bg-slate-800 rounded-b-2xl" />
+              <div className="relative mx-auto w-[300px] rounded-[32px] overflow-hidden shadow-xl border border-slate-200 group transition-all hover:shadow-2xl">
+                <img src="/131new/image/3-1.png" alt="个人智能体交互界面" className="w-full h-auto block" />
               </div>
             </div>
           </div>
