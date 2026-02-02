@@ -624,15 +624,40 @@ const App = () => {
               <div className="grid lg:grid-cols-12 gap-8 items-center">
                 <div className="lg:col-span-8">
                   <div className="bg-white rounded-[48px] p-10 border border-slate-100 shadow-sm">
-                     <h4 className="text-2xl font-black text-slate-900 mb-6">2. SaaS化架构与极速部署</h4>
-                     <p className="text-slate-600 mb-4">通过<span className="text-indigo-600 font-bold">交互式对话</span>引导酒店完成数字化配置，实现“零门槛”入驻。</p>
-                     <ProgressBar label="酒店注册助手设计完成度" percentage={100} />
-                     <p className="text-sm text-slate-500 mt-2">预计年前正式上线，实现分钟级自主注册。</p>
+                     <h4 className="text-2xl font-black text-slate-900 mb-6">2. 重点工作推进情况</h4>
+                     <ul className="space-y-4 text-slate-600">
+                       <li className="leading-relaxed">
+                         <span className="font-bold text-indigo-600 mr-2">a.</span>
+                         1月23日正式发布<span className="font-bold text-slate-900">“两会特别版”智能体门户</span>，集成两会助手、健康小妙招、黄小西、亲子陪伴4个专项智能体。
+                       </li>
+                       <li className="leading-relaxed pl-6 text-sm bg-slate-50 p-3 rounded-xl border border-slate-100">
+                         <span className="font-bold text-indigo-600 mr-2">b.</span>
+                         <span className="font-bold text-slate-700">两会运行数据：</span>
+                         <div className="grid grid-cols-2 gap-2 mt-2">
+                           <div>日均访问量：<span className="font-bold text-slate-900">70人</span></div>
+                           <div>总访问量：<span className="font-bold text-slate-900">209人</span></div>
+                           <div>日均问答数：<span className="font-bold text-slate-900">90条</span></div>
+                           <div>总问答数：<span className="font-bold text-slate-900">301条</span></div>
+                         </div>
+                       </li>
+                       <li className="leading-relaxed">
+                         <span className="font-bold text-indigo-600 mr-2">c.</span>
+                         本地推荐官、会议助手、睡眠助手等3个新角色预计在年前上线。
+                       </li>
+                       <li className="leading-relaxed">
+                         <span className="font-bold text-indigo-600 mr-2">d.</span>
+                         目前已支持接入不同AI平台的智能体，通过主门户对话即可精准调度特定服务，实现了“总控+分身”的架构闭环。
+                       </li>
+                       <li className="leading-relaxed">
+                         <span className="font-bold text-indigo-600 mr-2">e.</span>
+                         部分酒店已联动PMS系统，实现个性化需求的精准预测与主动推送，提升住客体验与消费转化。
+                       </li>
+                     </ul>
                   </div>
                 </div>
                 <div className="lg:col-span-4 flex justify-center">
                   <div className="w-[240px]">
-                    <img src="/202new/image/2-2.png" alt="SaaS注册" className="w-full rounded-[24px] shadow-lg border border-slate-100" />
+                    <img src="/202new/image/2-3.png" alt="SaaS注册" className="w-full rounded-[24px] shadow-lg border border-slate-100" />
                   </div>
                 </div>
               </div>
