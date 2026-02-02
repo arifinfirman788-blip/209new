@@ -799,9 +799,9 @@ const App = () => {
            <div className="bg-slate-900 text-white rounded-[48px] p-12 relative overflow-hidden">
              <div className="absolute top-0 right-0 w-96 h-96 bg-indigo-600 rounded-full blur-[100px] opacity-30 -mr-20 -mt-20"></div>
              
-             <div className="grid lg:grid-cols-12 gap-12 relative z-10 items-start">
-               {/* 左侧文字内容 */}
-               <div className="lg:col-span-7 grid md:grid-cols-2 gap-8">
+             <div className="flex flex-col gap-12 relative z-10">
+               {/* 上方文字内容 */}
+               <div className="w-full grid md:grid-cols-2 gap-8">
                  <div className="space-y-12">
                    <div>
                      <h4 className="text-2xl font-black text-indigo-400 mb-4">1. 从“看数据”到“能分析、能预警、能调度”</h4>
@@ -840,8 +840,8 @@ const App = () => {
                  </div>
                </div>
 
-               {/* 右侧展示位 */}
-               <div className="lg:col-span-5 flex flex-col gap-8">
+               {/* 下方展示位 */}
+               <div className="w-full grid md:grid-cols-2 gap-8 items-center">
                  {/* PC端 */}
                  <a href="https://glsw-provincescreen-test.aihuangxiaoxi.com/admin/#/index" target="_blank" rel="noopener noreferrer" className="group block">
                    <div className="bg-slate-800/50 rounded-2xl p-2 border border-slate-700/50 hover:border-indigo-500/50 transition-all shadow-xl">
