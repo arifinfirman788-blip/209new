@@ -491,6 +491,7 @@ const App = () => {
                     className="w-full h-full border-0"
                     title="新版首页舞台"
                     scrolling="no"
+                    loading="lazy"
                     allow="accelerometer; autoplay; camera; clipboard-write; encrypted-media; fullscreen; geolocation; gyroscope; microphone; midi; payment; picture-in-picture; web-share"
                     allowFullScreen
                   />
@@ -681,7 +682,7 @@ const App = () => {
                 </div>
                 <div className="lg:col-span-4 flex justify-center">
                   <div className="w-[240px]">
-                    <img src="/202new/image/2-3.png" alt="SaaS注册" className="w-full rounded-[24px] shadow-lg border border-slate-100" />
+                    <img src="/202new/image/2-3.png" alt="SaaS注册" loading="lazy" className="w-full rounded-[24px] shadow-lg border border-slate-100" />
                   </div>
                 </div>
               </div>
@@ -699,7 +700,7 @@ const App = () => {
                 </div>
                 <div className="lg:col-span-4 flex justify-center">
                   <div className="w-[240px]">
-                    <img src="/202new/image/868dbb8bc5354d00ed5c90e27c26931d.png" alt="多端协同" className="w-full rounded-[24px] shadow-lg border border-slate-100" />
+                    <img src="/202new/image/868dbb8bc5354d00ed5c90e27c26931d.png" alt="多端协同" loading="lazy" className="w-full rounded-[24px] shadow-lg border border-slate-100" />
                   </div>
                 </div>
               </div>
@@ -772,7 +773,7 @@ const App = () => {
               </div>
               <div className="lg:col-span-4 flex justify-center gap-4">
                 <div className="w-[160px] aspect-[9/19.5] bg-slate-100 rounded-[24px] border border-slate-200 flex items-center justify-center text-slate-400 text-xs font-bold shadow-sm overflow-hidden">
-                  <img src="/202new/image/3c107169e9a1b428157a2a4dd7e16c1d.jpg" alt="景区展示1" className="w-full h-full object-cover" />
+                  <img src="/202new/image/3c107169e9a1b428157a2a4dd7e16c1d.jpg" alt="景区展示1" loading="lazy" className="w-full h-full object-cover" />
                 </div>
                 <div className="w-[160px] aspect-[9/19.5] bg-slate-100 rounded-[24px] border border-slate-200 flex items-center justify-center text-slate-400 text-xs font-bold shadow-sm overflow-hidden">
                   <img src="/202new/image/2f0940dc11c58bf3a57634678ec7dee0.jpg" alt="景区展示2" className="w-full h-full object-cover" />
@@ -802,10 +803,10 @@ const App = () => {
               </div>
               <div className="lg:col-span-4 flex justify-center gap-4">
                 <div className="w-[160px] aspect-[9/19.5] bg-slate-100 rounded-[24px] border border-slate-200 flex items-center justify-center text-slate-400 text-xs font-bold shadow-sm overflow-hidden">
-                  <img src="/202new/image/e8a91d5c8c3b6e0a9e53d83e7cc4d288.jpg" alt="餐饮智能体" className="w-full h-full object-cover" />
+                  <img src="/202new/image/e8a91d5c8c3b6e0a9e53d83e7cc4d288.jpg" alt="餐饮智能体" loading="lazy" className="w-full h-full object-cover" />
                 </div>
                 <div className="w-[160px] aspect-[9/19.5] bg-slate-100 rounded-[24px] border border-slate-200 flex items-center justify-center text-slate-400 text-xs font-bold shadow-sm overflow-hidden">
-                  <img src="/202new/image/3077fa4fc9e050a4ad72f48ebcc216d2.png" alt="导游智能体" className="w-full h-full object-cover" />
+                  <img src="/202new/image/3077fa4fc9e050a4ad72f48ebcc216d2.png" alt="导游智能体" loading="lazy" className="w-full h-full object-cover" />
                 </div>
               </div>
             </div>
@@ -887,7 +888,7 @@ const App = () => {
                    <a href="https://glsw-provincescreen-test.aihuangxiaoxi.com/h5/#/" target="_blank" rel="noopener noreferrer" className="group block w-[200px]">
                      <div className="bg-slate-800/50 rounded-[32px] p-2 border border-slate-700/50 hover:border-indigo-500/50 transition-all shadow-xl">
                        <div className="aspect-[9/19.5] bg-slate-900 rounded-[24px] overflow-hidden relative">
-                         <img src="/202new/image/eec5799acf1fe30d813b4401c1dac7e8.png" alt="移动端驾驶舱" className="w-full h-full object-cover" />
+                         <img src="/202new/image/eec5799acf1fe30d813b4401c1dac7e8.png" alt="移动端驾驶舱" loading="lazy" className="w-full h-full object-cover" />
                          <div className="absolute inset-0 bg-indigo-900/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                            <span className="bg-white/10 backdrop-blur-md text-white px-3 py-1.5 rounded-full text-xs font-bold border border-white/20">点击访问移动端</span>
                          </div>
@@ -1020,10 +1021,11 @@ const App = () => {
               <div className="w-full md:w-2/3">
                 <div className="aspect-video bg-slate-800/50 rounded-2xl overflow-hidden border border-white/10 shadow-2xl flex items-center justify-center relative backdrop-blur-sm">
                   <img 
-                    src="/202new/image/1d8057d625a906bbc2e3a6660be207ab.png" 
-                    alt="运营效果展示" 
-                    className="w-full h-full object-contain p-2"
-                  />
+                      src="/202new/image/1d8057d625a906bbc2e3a6660be207ab.png" 
+                      alt="运营效果展示" 
+                      loading="lazy"
+                      className="w-full h-full object-contain p-2"
+                    />
                 </div>
                 <p className="text-center text-white/50 text-sm mt-4 font-bold">运营效果展示</p>
               </div>
