@@ -588,11 +588,28 @@ const App = () => {
               <div className="grid lg:grid-cols-12 gap-8 items-center">
                 <div className="lg:col-span-8">
                   <div className="bg-white rounded-[48px] p-10 border border-slate-100 shadow-sm">
-                     <h4 className="text-2xl font-black text-slate-900 mb-6">1. 标杆案例：从“单一问询”转向“智能体门户”</h4>
-                     <div className="relative pl-6 border-l-4 border-indigo-500 space-y-4">
-                       <p className="font-bold text-slate-900">贵州饭店“两会特别版”</p>
-                       <p className="text-slate-600">1月23日正式发布，集成<span className="text-indigo-600 font-bold">两会助手、健康小妙招、黄小西、亲子陪伴</span> 4个专项智能体。</p>
-                       <p className="text-slate-600">实现“总控+分身”架构闭环，支持接入不同AI平台的智能体。</p>
+                     <h4 className="text-2xl font-black text-slate-900 mb-6">1. 标杆案例与产品进展</h4>
+                     <div className="relative pl-6 border-l-4 border-indigo-500 space-y-6">
+                       <div>
+                         <p className="font-bold text-slate-900 text-lg mb-2 flex items-center gap-2">
+                           <div className="w-2 h-2 bg-indigo-500 rounded-full" />
+                           标杆案例
+                         </p>
+                         <ul className="space-y-2 pl-4 text-slate-600">
+                           <li>• 贵州饭店“两会特别版”智能服务</li>
+                           <li>• 获代表委员好评</li>
+                         </ul>
+                       </div>
+                       
+                       <div>
+                         <p className="font-bold text-slate-900 text-lg mb-2 flex items-center gap-2">
+                           <div className="w-2 h-2 bg-indigo-500 rounded-full" />
+                           产品进展
+                         </p>
+                         <ul className="space-y-2 pl-4 text-slate-600">
+                           <li>• 聚焦住客服务提质，打造多类场景化智能体</li>
+                         </ul>
+                       </div>
                      </div>
                   </div>
                 </div>
