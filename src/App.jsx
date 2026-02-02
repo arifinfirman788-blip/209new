@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import hotelData from './data/hotel_data.json';
+import RotatingText from './RotatingText';
 import { 
   Target, 
   Layers, 
@@ -227,19 +228,20 @@ const App = () => {
                   黄小西
                 </motion.span>
                 <br />
-                <motion.span 
-                  className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-violet-600 to-indigo-600 inline-block"
-                  initial={{ backgroundPosition: "0% 50%" }}
-                  animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
-                  transition={{ 
-                    duration: 5, 
-                    repeat: Infinity, 
-                    ease: "linear" 
-                  }}
-                  style={{ backgroundSize: "200% auto" }}
-                >
-                  多彩AI应用生态
-                </motion.span>
+                <div className="flex justify-center mt-2">
+                  <RotatingText 
+                    texts={['多彩', '智能', 'AI应用生态']} 
+                    mainClassName="px-2 sm:px-2 md:px-3 text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-violet-600 to-indigo-600 overflow-hidden py-0.5 sm:py-1 md:py-2 justify-center rounded-lg" 
+                    staggerFrom={"last"} 
+                    initial={{ y: "100%" }} 
+                    animate={{ y: 0 }} 
+                    exit={{ y: "-120%" }} 
+                    staggerDuration={0.025} 
+                    splitLevelClassName="overflow-hidden pb-0.5 sm:pb-1 md:pb-1" 
+                    transition={{ type: "spring", damping: 30, stiffness: 400 }} 
+                    rotationInterval={2000} 
+                  />
+                </div>
               </h1>
             </motion.div>
         </section>
