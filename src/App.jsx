@@ -163,10 +163,10 @@ const App = () => {
   }, []);
 
   const navItems = [
-    { id: 'overview', label: '进展概览' },
-    { id: 'arch', label: '能力体系' },
+    { id: 'overview', label: '组织投入' },
+    { id: 'arch', label: '组网架构' },
     { id: 'visitor', label: '游客端' },
-    { id: 'operation', label: '运营形式' },
+    { id: 'operation', label: '运营组织' },
     { id: 'enterprise', label: '企业端' },
     { id: 'gov', label: '政府端' },
     { id: 'ip', label: 'IP生态' }
@@ -183,7 +183,7 @@ const App = () => {
             </div>
             <span className="font-black text-2xl tracking-tighter text-slate-900 uppercase">AI <span className="text-indigo-600">Product</span></span>
           </div>
-          <nav className="hidden xl:flex gap-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.1em]">
+          <nav className="hidden xl:flex gap-6 text-sm font-black text-slate-400 tracking-[0.1em]">
             {navItems.map((item) => (
               <a 
                 key={item.id}
