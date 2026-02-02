@@ -21,10 +21,17 @@ import {
   Briefcase,
   PenTool,
   MessageSquare,
-  Repeat
+  Repeat,
+  MapPin,
+  Calendar,
+  CreditCard,
+  BarChart3,
+  Video,
+  Image,
+  X
 } from 'lucide-react';
 
-const Section = ({ id, title, icon: Icon, children, delay = 0, gradient = "from-indigo-600 to-violet-600" }) => (
+const Section = ({ id, title, subtitle, icon: Icon, children, delay = 0, gradient = "from-indigo-600 to-violet-600" }) => (
   <motion.section 
     id={id}
     initial={{ opacity: 0, y: 30 }}
@@ -33,13 +40,14 @@ const Section = ({ id, title, icon: Icon, children, delay = 0, gradient = "from-
     transition={{ duration: 0.8, delay, ease: "easeOut" }}
     className="mb-32 scroll-mt-24"
   >
-    <div className="flex flex-col md:flex-row md:items-center gap-6 mb-12">
-      <div className={`p-5 bg-gradient-to-br ${gradient} text-white rounded-[24px] shadow-xl shadow-indigo-100 shrink-0 self-start`}>
+    <div className="flex flex-col md:flex-row md:items-start gap-6 mb-12">
+      <div className={`p-5 bg-gradient-to-br ${gradient} text-white rounded-[24px] shadow-xl shadow-indigo-100 shrink-0 self-start mt-2`}>
         <Icon size={40} />
       </div>
       <div>
-        <h2 className="text-3xl md:text-5xl font-black text-slate-900 tracking-tighter leading-tight">{title}</h2>
-        <div className="h-2 w-32 bg-indigo-600 rounded-full mt-4" />
+        <h2 className="text-3xl md:text-5xl font-black text-slate-900 tracking-tighter leading-tight mb-3">{title}</h2>
+        {subtitle && <p className="text-xl md:text-2xl font-bold text-slate-500/90">{subtitle}</p>}
+        <div className="h-2 w-32 bg-indigo-600 rounded-full mt-8" />
       </div>
     </div>
     {children}
@@ -75,8 +83,8 @@ const Card = ({ title, description, imagePlaceholder, delay = 0, badge, icon: Ic
   </motion.div>
 );
 
-const SubSectionTitle = ({ children }) => (
-  <h3 className="text-xl md:text-2xl font-black text-slate-800 mb-8 mt-12 flex items-center gap-3">
+const SubSectionTitle = ({ children, className = "" }) => (
+  <h3 className={`text-xl md:text-2xl font-black text-slate-800 mb-8 mt-12 flex items-center gap-3 ${className}`}>
     <div className="w-2 h-8 bg-indigo-600 rounded-full" />
     {children}
   </h3>
@@ -98,7 +106,7 @@ const ProgressBar = ({ label, percentage, date, color = "bg-indigo-600" }) => (
   <div className="mb-8">
     <div className="flex justify-between items-end mb-3">
       <div>
-        <span className="text-sm font-black text-slate-400 uppercase tracking-widest block mb-1">{date}</span>
+        {date && <span className="text-sm font-black text-slate-400 uppercase tracking-widest block mb-1">{date}</span>}
         <span className="text-xl font-black text-slate-900">{label}</span>
       </div>
       <span className="text-2xl font-black text-indigo-600">{percentage}%</span>
@@ -115,8 +123,22 @@ const ProgressBar = ({ label, percentage, date, color = "bg-indigo-600" }) => (
   </div>
 );
 
+const DataCard = ({ value, label, subtext, icon: Icon, color = "text-indigo-600", bgColor = "bg-indigo-50" }) => (
+  <div className="bg-white p-6 rounded-[32px] border border-slate-100 shadow-sm flex items-start gap-4">
+    <div className={`w-12 h-12 ${bgColor} ${color} rounded-2xl flex items-center justify-center shrink-0`}>
+      <Icon size={24} />
+    </div>
+    <div>
+      <div className={`text-2xl font-black ${color} mb-1`}>{value}</div>
+      <div className="text-slate-900 font-bold mb-1">{label}</div>
+      {subtext && <div className="text-slate-500 text-sm font-medium">{subtext}</div>}
+    </div>
+  </div>
+);
+
 const App = () => {
   const [activeSection, setActiveSection] = React.useState('');
+  const [showGaodeModal, setShowGaodeModal] = React.useState(false);
 
   React.useEffect(() => {
     const observer = new IntersectionObserver(
@@ -127,7 +149,7 @@ const App = () => {
           }
         });
       },
-      { threshold: 0.5 }
+      { threshold: 0.2 }
     );
 
     document.querySelectorAll('section[id]').forEach((section) => {
@@ -136,6 +158,16 @@ const App = () => {
 
     return () => observer.disconnect();
   }, []);
+
+  const navItems = [
+    { id: 'overview', label: '进展概览' },
+    { id: 'arch', label: '能力体系' },
+    { id: 'visitor', label: '游客端' },
+    { id: 'operation', label: '运营形式' },
+    { id: 'enterprise', label: '企业端' },
+    { id: 'gov', label: '政府端' },
+    { id: 'ip', label: 'IP生态' }
+  ];
 
   return (
     <div className="min-h-screen bg-[#FDFDFF] text-slate-900 font-sans selection:bg-indigo-100 selection:text-indigo-900">
@@ -148,15 +180,8 @@ const App = () => {
             </div>
             <span className="font-black text-2xl tracking-tighter text-slate-900 uppercase">AI <span className="text-indigo-600">Product</span></span>
           </div>
-          <nav className="hidden lg:flex gap-8 text-[11px] font-black text-slate-400 uppercase tracking-[0.2em]">
-            {[
-              { id: 'strategy', label: '核心战略' },
-              { id: 'arch', label: '1. 三层架构' },
-              { id: 'prediction', label: '2. 需求预判' },
-              { id: 'operation', label: '3. 运营形式' },
-              { id: 'enterprise', label: '二、企业方案' },
-              { id: 'personal', label: '三、个人智能体' }
-            ].map((item) => (
+          <nav className="hidden xl:flex gap-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.1em]">
+            {navItems.map((item) => (
               <a 
                 key={item.id}
                 href={`#${item.id}`} 
@@ -173,15 +198,15 @@ const App = () => {
             ))}
           </nav>
           <div className="flex items-center gap-4">
-            {/* 移除登录和开始按钮 */}
+            {/* 预留位置 */}
           </div>
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-6 py-24">
+      <main className="max-w-7xl mx-auto px-6">
         {/* Hero Section */}
-        <section className="text-center mb-40 relative">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-indigo-50 rounded-full blur-[140px] opacity-40 -z-10" />
+        <section className="relative h-screen flex flex-col items-center justify-center overflow-hidden">
+          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1635350736475-c8cef4b21906?q=80&w=2940&auto=format&fit=crop')] bg-cover bg-center opacity-[0.03] mix-blend-overlay"></div>
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -191,101 +216,185 @@ const App = () => {
               Product Design Strategic Report
             </div>
             <h1 className="text-6xl md:text-9xl font-black text-slate-900 mb-10 tracking-tighter leading-[0.85]">
-              华创云信 <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-violet-600 to-indigo-600">
-                AI超级应用生态
-              </span>
-            </h1>
-            <p className="text-xl md:text-3xl text-slate-500 max-w-4xl mx-auto leading-relaxed mb-16 font-medium tracking-tight">
-              超越传统 App 与平台定义。通过西城家园、贵人家园、黄小西的架构与设计全统一，构建三位一体的智能体协作网络。
-            </p>
-          </motion.div>
+                黄小西 <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-violet-600 to-indigo-600">
+                  AI应用生态
+                </span>
+              </h1>
+            </motion.div>
         </section>
 
-        {/* 第一大部分：构筑AI超级应用：面向区域的智能体网络 */}
-        <Section id="strategy" title="一、构筑AI超级应用：面向区域的智能体网络" icon={Rocket} gradient="from-indigo-600 via-blue-600 to-emerald-600">
-          <div className="mb-24 bg-slate-50 rounded-[48px] p-12 border border-slate-100">
-            <h3 className="text-2xl md:text-3xl font-black text-slate-900 mb-6">
-              我们在搭建的是一个“智能体组成的生产系统”，而不是一个 App 或平台
-            </h3>
-            <p className="text-xl text-slate-600 font-medium leading-relaxed max-w-4xl">
-              短期目标是：西城家园、贵人家园、黄小西全部统一架构乃至于统一设计。
-            </p>
-          </div>
-
-          {/* 特点一：统一的三层智能体架构 */}
-          <div id="arch" className="scroll-mt-32 mb-32">
-            <SubSectionTitle>特点一：统一的三层智能体架构</SubSectionTitle>
-            <div className="grid lg:grid-cols-12 gap-12 items-start">
-              <div className="lg:col-span-7 space-y-8">
-                {[
-                  {
-                    title: "1. 组织 / 区域级调度智能体",
-                    desc: "作为统一入口与总调度，负责全局层面的多智能体协同。",
-                    points: ["多智能体编排与调度", "精准用户识别与画像", "任务分发与状态同步"]
-                  },
-                  {
-                    title: "2. 企业级 / 功能级服务智能体",
-                    desc: "面向具体业务场景，以标准化方式提供核心业务能力。",
-                    points: ["按企业类型/功能任务划分", "垂直场景能力深度挂载", "标准化服务接口输出"]
-                  },
-                  {
-                    title: "3. 个人级 / 角色级数字分身智能体",
-                    desc: "面向个人用户与从业者，构建数字世界的“第二分身”。",
-                    points: ["支撑个性化服务需求", "长期记忆与经验沉淀", "身份主权与数字化身"]
-                  }
-                ].map((item, idx) => (
-                  <div key={idx} className="bg-white rounded-[32px] p-8 border border-slate-100 shadow-sm hover:shadow-md transition-all">
-                    <h4 className="text-2xl font-black text-indigo-600 mb-2">{item.title}</h4>
-                    <p className="text-slate-900 font-bold mb-4 text-lg">{item.desc}</p>
-                    <ul className="space-y-2">
-                      {item.points.map((p, i) => (
-                        <li key={i} className="flex items-center gap-3 text-slate-500 font-medium">
-                          <div className="w-1.5 h-1.5 bg-indigo-400 rounded-full" />
-                          {p}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
+        {/* Section 1: 总体进展概览 */}
+        <Section 
+          id="overview" 
+          title="加强组织，加大投入" 
+          icon={BarChart3} 
+          gradient="from-slate-700 to-slate-900"
+        >
+          <div className="grid lg:grid-cols-3 gap-8">
+            {/* 重要会议 */}
+            <div className="bg-white p-8 rounded-[40px] border border-slate-100 shadow-sm">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center">
+                  <Calendar size={24} />
+                </div>
+                <h4 className="text-xl font-black text-slate-900">重要会议</h4>
               </div>
-              <div className="lg:col-span-5 sticky top-32">
-                <a 
-                  href="https://arifinfirman788-blip.github.io/2026NeiBu/" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="block relative mx-auto w-full rounded-2xl overflow-hidden shadow-xl border border-slate-200 group transition-all hover:shadow-2xl hover:scale-[1.01]"
-                >
-                  <img src="/131new/image/1-1.png" alt="三层架构管理后台" className="w-full h-auto block" />
-                </a>
-                {/* 底座示意 */}
-                <div className="w-32 h-3 bg-slate-800/20 mx-auto mt-4 rounded-full blur-sm" />
+              <ul className="space-y-4">
+                <li className="flex gap-3">
+                  <div className="w-1.5 h-1.5 bg-blue-500 rounded-full mt-2.5" />
+                  <p className="text-slate-600 font-medium"><span className="text-slate-900 font-bold">2025.11.04</span> 专题会</p>
+                </li>
+                <li className="flex gap-3">
+                  <div className="w-1.5 h-1.5 bg-blue-500 rounded-full mt-2.5" />
+                  <p className="text-slate-600 font-medium"><span className="text-slate-900 font-bold">2026.01.07</span> 贵旅集团现场调研会</p>
+                </li>
+              </ul>
+            </div>
+
+            {/* 项目投入 */}
+            <div className="bg-white p-8 rounded-[40px] border border-slate-100 shadow-sm">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center">
+                  <CreditCard size={24} />
+                </div>
+                <h4 className="text-xl font-black text-slate-900">直接项目投入</h4>
+              </div>
+              <div className="mb-4">
+                <p className="text-sm text-slate-500 font-bold uppercase tracking-wider mb-1">2025年1月以来累计</p>
+                <p className="text-4xl font-black text-slate-900">3800<span className="text-xl text-slate-500 ml-1">余万元</span></p>
+              </div>
+              <div className="space-y-2 text-sm font-medium text-slate-600">
+                <div className="flex justify-between p-3 bg-slate-50 rounded-xl">
+                  <span>贵旅数网</span>
+                  <span className="font-bold text-slate-900">1400万元</span>
+                </div>
+                <div className="flex justify-between p-3 bg-slate-50 rounded-xl">
+                  <span>华创云信</span>
+                  <span className="font-bold text-slate-900">2400万元</span>
+                </div>
+              </div>
+            </div>
+
+            {/* 研发团队 */}
+            <div className="bg-white p-8 rounded-[40px] border border-slate-100 shadow-sm">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center">
+                  <Users size={24} />
+                </div>
+                <h4 className="text-xl font-black text-slate-900">研发团队</h4>
+              </div>
+              <div className="flex items-end gap-4 mb-6">
+                <div>
+                  <p className="text-sm text-slate-500 font-bold mb-1">扩充前</p>
+                  <p className="text-2xl font-black text-slate-400">80人</p>
+                </div>
+                <ArrowRight className="mb-2 text-indigo-300" />
+                <div>
+                  <p className="text-sm text-indigo-600 font-bold mb-1">扩充后</p>
+                  <p className="text-4xl font-black text-indigo-600">121<span className="text-xl ml-1">人</span></p>
+                </div>
+              </div>
+              
+              {/* 工作视频轮播 */}
+              <div className="mt-6 rounded-2xl overflow-hidden shadow-sm border border-slate-100 bg-black h-32 relative group">
+                <video 
+                  src="/131new/video/f688a180eaffc8c281117271dd6bd668.mp4" 
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity"
+                />
+                <div className="absolute bottom-3 left-3 bg-black/50 backdrop-blur-md px-3 py-1.5 rounded-full text-white/90 text-xs font-bold flex items-center gap-2">
+                  <Video size={12} /> 工作实录
+                </div>
               </div>
             </div>
           </div>
+        </Section>
 
-          {/* 特点二：交互革命与需求预判 */}
-          <div id="prediction" className="scroll-mt-32 mb-32">
-            <SubSectionTitle>特点二：从“功能驱动”转向“智能体驱动”</SubSectionTitle>
+        {/* Section 2: 能力体系升级 */}
+        <Section 
+          id="arch" 
+          title="构建“三层智能体组网架构”" 
+          subtitle="我们在搭建的是一个“智能体组成的生产系统”"
+          icon={Layers} 
+          gradient="from-indigo-600 via-blue-600 to-emerald-600"
+        >
+          <div className="grid lg:grid-cols-12 gap-12 items-start">
+            <div className="lg:col-span-7 space-y-8">
+              {[
+                {
+                  title: "1. 调度级智能体",
+                  desc: "在多智能体调度这一前沿方向上，我们不是停留在概念验证，而是已经在真实文旅场景中完成了体系化落地，整体进度在国内处于第一梯队，在文旅行业Ai应用层面具有绝对的先发优势。",
+                  layout: "row" // 新增布局标记
+                },
+                {
+                  title: "2. 企业级 / 功能级服务智能体",
+                  desc: "面向酒店、景区、餐饮等涉旅企业，赋能具体业务与服务场景。",
+                },
+                {
+                  title: "3. 个人级 / 角色级数字分身智能体",
+                  desc: "面向个人用户与从业者，构建数字世界的“第二分身”。",
+                }
+              ].map((item, idx) => (
+                <div key={idx} className="bg-white rounded-[32px] p-8 border border-slate-100 shadow-sm hover:shadow-md transition-all">
+                  <h4 className="text-2xl font-black text-indigo-600 mb-2">{item.title}</h4>
+                  <p className="text-slate-900 font-bold mb-4 text-lg">{item.desc}</p>
+                </div>
+              ))}
+              
+              <div className="p-8 bg-indigo-900 rounded-[32px] text-white text-center">
+                <p className="text-xl font-black">总结：“一个入口，调度多类智能体，覆盖文旅服务全链条”</p>
+              </div>
+            </div>
             
-            {/* 1. 首页即智能体舞台 */}
-            <div className="grid lg:grid-cols-12 gap-12 items-start mb-24">
-              <div className="lg:col-span-7 space-y-8">
+            <div className="lg:col-span-5 sticky top-32">
+              <div className="bg-slate-50 rounded-[32px] p-6 border border-slate-200 shadow-xl">
+                <div className="grid grid-cols-4 gap-2 mb-4">
+                  {[1, 2, 3, 4].map((item) => (
+                    <div key={item} className="aspect-[9/19.5] bg-white rounded-lg border border-slate-100 flex items-center justify-center text-slate-300 text-[10px] font-bold shadow-sm">
+                      {item}
+                    </div>
+                  ))}
+                </div>
+                <div className="aspect-[16/10] bg-white rounded-xl border border-slate-100 flex items-center justify-center text-slate-400 text-xs font-bold shadow-sm">
+                  PC端展示位
+                </div>
+              </div>
+              <div className="w-24 h-2 bg-slate-800/10 mx-auto mt-4 rounded-full blur-sm" />
+            </div>
+          </div>
+        </Section>
+
+        {/* Section 3: 新版「黄小西」游客端 */}
+        <Section 
+          id="visitor" 
+          title="新版「黄小西」游客端" 
+          subtitle="文旅智能服务超级入口"
+          icon={Rocket} 
+          gradient="from-violet-600 to-fuchsia-600"
+        >
+          <div className="grid lg:grid-cols-12 gap-12 items-start">
+            {/* 左侧内容区：包含所有4个点 */}
+            <div className="lg:col-span-7 space-y-12">
+              
+              {/* 1. 新首页 = 超级门户 */}
+              <div className="space-y-8">
+                <SubSectionTitle className="!mt-0">1. 新首页 = 超级门户</SubSectionTitle>
                 <div className="bg-white rounded-[48px] p-10 border border-slate-100 shadow-sm">
-                  <h4 className="text-3xl font-black text-slate-900 mb-6 tracking-tight flex items-center gap-3">
-                    <LayoutDashboard className="text-indigo-600" size={32} /> 1. 首页即智能体舞台
-                  </h4>
                   <p className="text-slate-600 font-medium text-lg leading-relaxed mb-8">
-                    彻底告别传统 App 的功能菜单堆砌，将首页重构为智能体的全时互动舞台。
+                    本质：用智能体替代传统功能入口
                   </p>
                   <div className="space-y-6">
                     {[
-                      { title: "多模态呈现", desc: "融合图文、形象、状态，赋予智能体真实的“生命感”与“存在感”。", icon: PlayCircle },
-                      { title: "即时交互诱导", desc: "第一眼即让用户产生“想对话、想解决问题”的欲望，降低心理门槛。", icon: MessageSquare },
-                      { title: "统一扩展方式", desc: "作为通用的“能力舞台”，支持不断接入新的智能体与垂直服务。", icon: Network }
+                      { desc: "多模态呈现", title: "融合图文、形象、状态，赋予智能体真实的“生命感”。", icon: PlayCircle },
+                      { desc: "即时交互诱导", title: "第一眼即让用户“想和它对话、想用它解决问题”。", icon: MessageSquare },
+                      { desc: "统一扩展方式", title: "不断接入新的智能体与垂直服务。", icon: Network }
                     ].map((item, i) => (
                       <div key={i} className="flex gap-5 p-5 hover:bg-slate-50 rounded-3xl transition-colors group">
-                        <div className="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center shrink-0 group-hover:bg-indigo-600 group-hover:text-white transition-all">
+                        <div className="w-12 h-12 bg-violet-50 text-violet-600 rounded-2xl flex items-center justify-center shrink-0 group-hover:bg-violet-600 group-hover:text-white transition-all">
                           <item.icon size={24} />
                         </div>
                         <div>
@@ -295,454 +404,45 @@ const App = () => {
                       </div>
                     ))}
                   </div>
-                  <div className="mt-8 pt-8 border-t border-slate-100">
-                    <p className="text-indigo-600 font-black flex items-center gap-2 text-xl">
-                      <Zap size={24} /> 本质：用智能体替代传统功能入口
-                    </p>
-                  </div>
                 </div>
               </div>
 
-              <div className="lg:col-span-5 sticky top-32">
-                <a 
-                  href="https://arifinfirman788-blip.github.io/HuangxiaoxiV4.0" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="block relative mx-auto w-[320px] rounded-[40px] overflow-hidden shadow-xl border border-slate-200 group transition-all hover:shadow-2xl hover:scale-[1.01]"
-                >
-                  <img src="/131new/image/1-2.png" alt="新版首页舞台" className="w-full h-auto block" />
-                </a>
-              </div>
-            </div>
-
-            {/* 2. 从“响应需求”转向“预判需求” */}
-            <div className="grid lg:grid-cols-12 gap-12 items-start">
-              <div className="lg:col-span-7 space-y-8">
-                <div className="bg-white rounded-[48px] p-10 border border-slate-100 shadow-sm">
-                  <h4 className="text-3xl font-black text-slate-900 mb-8 tracking-tight flex items-center gap-3">
-                    <Compass className="text-amber-600" size={32} /> 2. 从“响应需求”转向“预判需求”
-                  </h4>
-                  <div className="space-y-8">
-                    {[
-                      { title: "用户是谁", desc: "明确游客、从业者或企业身份，提供差异化服务逻辑。", icon: Users },
-                      { title: "所处阶段", desc: "实时追踪来前、在途、服务中、离开后的全行程动态。", icon: Target },
-                      { title: "所处场景", desc: "感知区域、企业或个人空间环境，精准匹配需求场景。", icon: Globe }
-                    ].map((item, i) => (
-                      <div key={i} className="flex gap-6">
-                        <div className="w-12 h-12 bg-amber-50 text-amber-600 rounded-2xl flex items-center justify-center shrink-0">
-                          <item.icon size={24} />
-                        </div>
-                        <div>
-                          <h5 className="text-xl font-black text-slate-900 mb-2">{item.title}</h5>
-                          <p className="text-slate-600 font-medium leading-relaxed">{item.desc}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="mt-12 p-8 bg-amber-50 rounded-[40px] border border-amber-100">
-                    <p className="text-amber-900 font-black mb-3 flex items-center gap-2 text-xl">
-                      <Zap size={24} className="text-amber-600" /> 黄小西行程服务：AI 主动参与过程
-                    </p>
-                    <div className="grid grid-cols-2 gap-4 mt-6">
-                      <div className="p-5 bg-white rounded-2xl border border-amber-200/50">
-                        <span className="text-xs font-black text-amber-600 block mb-2 uppercase tracking-widest">服务模式</span>
-                        <span className="text-slate-900 font-black text-lg">从“被动响应”转向“前置介入”</span>
-                      </div>
-                      <div className="p-5 bg-white rounded-2xl border border-amber-200/50">
-                        <span className="text-xs font-black text-amber-600 block mb-2 uppercase tracking-widest">运营逻辑</span>
-                        <span className="text-slate-900 font-black text-lg">从“动作驱动”转向“状态驱动”</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="lg:col-span-5 sticky top-32">
-                <a 
-                  href="https://arifinfirman788-blip.github.io/HuangxiaoxiV4.0/trip/undefined" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="block relative mx-auto w-[320px] rounded-[40px] overflow-hidden shadow-xl border border-slate-200 group transition-all hover:shadow-2xl hover:scale-[1.01]"
-                >
-                  <img src="/131new/image/1-3.png" alt="需求预判交互界面" className="w-full h-auto block" />
-                </a>
-              </div>
-            </div>
-          </div>
-
-          {/* 特点三：创新的运营组织形式 */}
-          <div id="operation" className="scroll-mt-32">
-            <SubSectionTitle>特点三：创新的运营组织形式</SubSectionTitle>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-              {[
-                {
-                  title: "生态用户体系",
-                  desc: "企业客户不只是一次性交付对象，在使用服务的同时自然成为生态节点。",
-                  icon: Network,
-                  color: "bg-blue-50 text-blue-600"
-                },
-                {
-                  title: "服务“带人上来”",
-                  desc: "不强推平台宏大叙事，先通过解决具体服务问题实现自然转化。",
-                  icon: Briefcase,
-                  color: "bg-indigo-50 text-indigo-600"
-                },
-                {
-                  title: "B→C 自然引流",
-                  desc: "将别人的会员转化为我们的用户，服务场景即是最高效的获客入口。",
-                  icon: Repeat,
-                  color: "bg-emerald-50 text-emerald-600"
-                },
-                {
-                  title: "AI时代的头条",
-                  desc: "改变创作逻辑，让每一个贵州人都来参与创作自己的“黄小西”。",
-                  icon: MessageSquare,
-                  color: "bg-amber-50 text-amber-600"
-                }
-              ].map((item, i) => (
-                <div key={i} className="bg-white p-8 rounded-[40px] border border-slate-100 shadow-sm hover:shadow-xl transition-all flex flex-col h-full">
-                  <div className={`w-14 h-14 ${item.color} rounded-2xl flex items-center justify-center mb-6`}>
-                    <item.icon size={28} />
-                  </div>
-                  <h4 className="text-xl font-black text-slate-900 mb-4">{item.title}</h4>
-                  <p className="text-slate-600 font-medium leading-relaxed text-sm flex-grow">{item.desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </Section>
-
-        {/* 第二大部分：面向企业的应用级智能体系列方案 */}
-        <Section id="enterprise" title="二、面向企业的应用级智能体系列方案" icon={Briefcase} gradient="from-blue-600 to-indigo-600">
-          <div className="mb-24">
-            <SubSectionTitle>酒店智能体的重点业务进度</SubSectionTitle>
-            
-            <div className="grid lg:grid-cols-12 gap-12 items-start mb-32">
-              <div className="lg:col-span-7">
-                <div className="bg-white rounded-[48px] p-12 border border-slate-100 shadow-sm mb-12">
-                  <h4 className="text-3xl font-black text-slate-900 mb-10 flex items-center gap-3">
-                    <Target className="text-indigo-600" size={32} /> 1. 从“单一问询”转向“智能体门户”
-                  </h4>
-                  
-                  <div className="space-y-12 mb-12">
-                    <div className="relative pl-8 border-l-4 border-emerald-500">
-                      <div className="absolute -left-3 top-0 w-5 h-5 bg-emerald-500 rounded-full border-4 border-white shadow-sm" />
-                      <div className="inline-block px-4 py-1 bg-emerald-50 text-emerald-600 rounded-full text-xs font-black mb-4">
-                        已上线：1月23日
-                      </div>
-                      <h5 className="text-xl font-black text-slate-900 mb-4">正式发布“两会特别版”智能体门户</h5>
-                      <p className="text-slate-600 font-medium leading-relaxed mb-6">
-                        集成 <span className="text-indigo-600 font-bold">两会助手、健康小妙招、黄小西、亲子陪伴</span> 4个专项 Agent，实现多维服务聚合。
-                      </p>
-                      <ProgressBar 
-                        label="门户建设完成度" 
-                        percentage={100} 
-                        color="bg-emerald-500"
-                      />
-                    </div>
-
-                    <div className="relative pl-8 border-l-4 border-indigo-500">
-                      <div className="absolute -left-3 top-0 w-5 h-5 bg-indigo-500 rounded-full border-4 border-white shadow-sm" />
-                      <div className="inline-block px-4 py-1 bg-indigo-50 text-indigo-600 rounded-full text-xs font-black mb-4">
-                        技术突破
-                      </div>
-                      <h5 className="text-xl font-black text-slate-900 mb-4">完成多智能体路由 (Router) 开发</h5>
-                      <p className="text-slate-600 font-medium leading-relaxed mb-6">
-                        支持接入不同 AI 平台的子 Agent，通过主门户对话即可精准调度特定服务，实现了<span className="text-indigo-600 font-bold">“总控+分身”</span>的架构闭环。
-                      </p>
-                      
-                      <div className="space-y-6">
-                        <ProgressBar 
-                          label="路由技术成熟度" 
-                          percentage={100} 
-                          color="bg-indigo-500"
-                        />
-                        <ProgressBar 
-                          date="进行中"
-                          label="“总控+分身”架构闭环演进" 
-                          percentage={90} 
-                          color="bg-gradient-to-r from-amber-500 to-orange-500"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="lg:col-span-5 sticky top-32">
-                <div className="relative mx-auto w-[300px] rounded-[32px] overflow-hidden shadow-xl border border-slate-200 group transition-all hover:shadow-2xl">
-                  <img src="/131new/image/2-1.png" alt="酒店智能体门户展示" className="w-full h-auto block" />
-                </div>
-              </div>
-            </div>
-
-            <div className="grid lg:grid-cols-12 gap-12 items-start mb-32">
-              <div className="lg:col-span-7">
-                <div className="bg-white rounded-[48px] p-12 text-slate-900 border border-slate-100 shadow-sm mb-12 relative overflow-hidden">
-                  <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-50 rounded-full -mr-32 -mt-32 blur-3xl" />
-                  
-                  <h4 className="text-3xl font-black mb-10 flex items-center gap-3 relative z-10">
-                    <Settings className="text-indigo-600" /> 2. SaaS 化架构与极速部署
-                  </h4>
-                  
-                  <ProgressBar 
-                    date="已完成"
-                    label="“酒店入驻助手”产品设计" 
-                    percentage={100} 
-                    color="bg-indigo-600"
-                  />
-                  
-                  <ProgressBar 
-                    date="计划中"
-                    label="系统正式上线与初始化功能" 
-                    percentage={60} 
-                    color="bg-emerald-500"
-                  />
-
-                  <div className="mt-12 space-y-8 relative z-10">
-                    <div className="p-8 bg-indigo-50/50 rounded-[32px] border border-indigo-100">
-                      <h5 className="font-black text-indigo-600 mb-4 tracking-tight uppercase text-sm">核心价值：实现“零门槛”入驻</h5>
-                      <p className="text-slate-600 font-medium leading-relaxed text-lg">
-                        改变传统繁琐的对接流程，通过<span className="text-indigo-600 font-bold">交互式对话</span>引导酒店完成数字化配置，将部署成本降至最低。
-                      </p>
-                    </div>
-                    
-                    <div className="flex items-center gap-6 p-6 bg-emerald-50 rounded-[32px] border border-emerald-100">
-                      <div className="w-12 h-12 bg-emerald-500 rounded-2xl flex items-center justify-center shrink-0 shadow-lg">
-                        <Zap size={24} className="text-white" />
-                      </div>
-                      <div>
-                        <p className="text-slate-900 font-black">上线计划：预计年前正式发布</p>
-                        <p className="text-slate-500 text-sm font-medium">届时酒店可实现分钟级自主入驻与系统初始化</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="lg:col-span-5 sticky top-32">
-                <div className="relative mx-auto w-[300px] rounded-[32px] overflow-hidden shadow-xl border border-slate-200 group transition-all hover:shadow-2xl">
-                  <img src="/131new/image/2-2.png" alt="“酒店入驻助手”界面" className="w-full h-auto block" />
-                </div>
-              </div>
-            </div>
-
-            <div className="grid lg:grid-cols-12 gap-12 items-start">
-              <div className="lg:col-span-7">
-                <div className="bg-white rounded-[48px] p-12 border border-slate-100 shadow-sm mb-12 relative overflow-hidden group">
-                  <div className="absolute top-0 right-0 w-48 h-48 bg-blue-50 rounded-bl-full -mr-16 -mt-16 transition-transform group-hover:scale-110" />
-                  
-                  <h4 className="text-3xl font-black text-slate-900 mb-10 flex items-center gap-3 relative z-10">
-                    <UserCircle className="text-blue-600" size={32} /> 3. 多端数字分身：全场景角色覆盖
-                  </h4>
-                  
-                  <div className="space-y-10 relative z-10">
-                    <div>
-                      <div className="flex items-center gap-3 mb-4">
-                        <div className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-[10px] font-black uppercase tracking-widest">住客端</div>
-                        <h5 className="text-xl font-black text-slate-900">面向住客的个性化服务</h5>
-                      </div>
-                      <div className="space-y-4 mb-6">
-                        <div className="flex items-start gap-3 p-4 bg-slate-50 rounded-2xl border border-slate-100">
-                          <div className="w-2 h-2 bg-emerald-500 rounded-full mt-2" />
-                          <p className="text-slate-600 font-medium">
-                            <span className="text-slate-900 font-bold">已上线：</span>两会助手等 3 个 Agent 已编排上线。
-                          </p>
-                        </div>
-                        <div className="flex items-start gap-3 p-4 bg-blue-50/50 rounded-2xl border border-blue-100">
-                          <div className="w-2 h-2 bg-blue-500 rounded-full mt-2" />
-                          <p className="text-slate-600 font-medium">
-                            <span className="text-slate-900 font-bold">联调中：</span>本地推荐官、会议助手、睡眠助手等 3 个新角色。
-                          </p>
-                        </div>
-                      </div>
-                      <ProgressBar label="住客端角色覆盖度" percentage={85} color="bg-blue-600" />
-                    </div>
-
-                    <div>
-                      <div className="flex items-center gap-3 mb-4">
-                        <div className="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-[10px] font-black uppercase tracking-widest">酒店/员工端</div>
-                        <h5 className="text-xl font-black text-slate-900">面向酒店的高效办公协同</h5>
-                      </div>
-                      <div className="flex items-start gap-3 p-4 bg-indigo-50/50 rounded-2xl border border-indigo-100 mb-6">
-                        <div className="w-2 h-2 bg-indigo-500 rounded-full mt-2" />
-                        <p className="text-slate-600 font-medium">
-                          <span className="text-slate-900 font-bold">联调中：</span>“前台记事助手”已进入联调阶段。
-                        </p>
-                      </div>
-                      <ProgressBar label="员工端协作覆盖度" percentage={60} color="bg-indigo-600" />
-                    </div>
-
-                    <div className="flex items-center gap-6 p-6 bg-emerald-50 rounded-[32px] border border-emerald-100">
-                      <div className="w-12 h-12 bg-emerald-500 rounded-2xl flex items-center justify-center shrink-0 shadow-lg">
-                        <Rocket size={24} className="text-white" />
-                      </div>
-                      <div>
-                        <p className="text-emerald-900 font-black text-lg">上线计划：预计年前全部上线</p>
-                        <p className="text-emerald-700/70 text-sm font-medium">完成从住客服务到办公协同的全场景覆盖</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="lg:col-span-5 sticky top-32">
-                {/* PC端预览 */}
-                <div className="relative w-full rounded-2xl overflow-hidden shadow-xl border border-slate-200 group transition-all hover:shadow-2xl">
-                  <img src="/131new/image/2-3.png" alt="PC端协同管理后台" className="w-full h-auto block" />
-                </div>
-              </div>
-            </div>
-
-            <div className="grid lg:grid-cols-12 gap-12 items-start mb-32">
-              <div className="lg:col-span-7">
-                <div className="bg-white rounded-[48px] p-12 border border-slate-100 shadow-sm mb-12 relative overflow-hidden group">
-                  <div className="absolute top-0 right-0 w-48 h-48 bg-amber-50 rounded-bl-full -mr-16 -mt-16 transition-transform group-hover:scale-110" />
-                  
-                  <h4 className="text-3xl font-black text-slate-900 mb-10 flex items-center gap-3 relative z-10">
-                    <Rocket className="text-amber-600" size={32} /> 4. 硬件设备：交互载体落地
-                  </h4>
-                  
-                  <div className="space-y-10 relative z-10">
-                    {/* 模式定型 */}
-                    <div className="p-8 bg-slate-50 rounded-[32px] border border-slate-100">
-                      <div className="flex items-center gap-4 mb-6">
-                        <div className="w-12 h-12 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center">
-                          <Settings size={24} />
-                        </div>
-                        <h5 className="text-xl font-black text-slate-900">模式定型：ODM 贴牌模式</h5>
-                      </div>
-                      <p className="text-slate-600 font-medium leading-relaxed">
-                        确定采取 <span className="text-amber-600 font-bold">ODM 贴牌模式</span>；已对接 5 家供应商确定硬件设计细节和首批购买量。
-                      </p>
-                    </div>
-
-                    {/* 技术方案 */}
-                    <div className="p-8 bg-indigo-50 rounded-[32px] border border-indigo-100">
-                      <div className="flex items-center gap-4 mb-6">
-                        <div className="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center">
-                          <Cpu size={24} />
-                        </div>
-                        <h5 className="text-xl font-black text-slate-900">技术方案：样机测试与优化</h5>
-                      </div>
-                      <p className="text-slate-600 font-medium leading-relaxed mb-6">
-                        已收到 <span className="text-indigo-600 font-bold">喵伴小音箱</span> 样机并上机测试，目前已实现智能问答与服务下单。将根据测试效果优化酒店智能体，并反馈硬件需求。
-                      </p>
-                      <ProgressBar label="硬件服务集成进度" percentage={75} color="bg-indigo-600" />
-                    </div>
-
-                    {/* 风险提示 */}
-                    <div className="flex items-start gap-6 p-8 bg-red-50 rounded-[32px] border border-red-100">
-                      <div className="w-12 h-12 bg-red-100 text-red-600 rounded-2xl flex items-center justify-center shrink-0">
-                        <Repeat size={24} />
-                      </div>
-                      <div>
-                        <p className="text-red-900 font-black text-lg mb-2">风险提示：供应链周期影响</p>
-                        <p className="text-red-700/80 font-medium text-sm leading-relaxed">
-                          厂家 2 月 8 日放假及一个月设计周期。年前定产方案，最快 <span className="font-bold">三月中</span> 获得量产样机。
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="lg:col-span-5 sticky top-32">
-                <div className="relative w-full rounded-3xl overflow-hidden shadow-xl border border-slate-200 group transition-all hover:shadow-2xl">
-                  <img src="/131new/image/2-4.png" alt="硬件交互载体截图" className="w-full h-auto block" />
-                </div>
-              </div>
-            </div>
-
-            {/* 5. 通用供应链+电商体系 */}
-            <div className="grid lg:grid-cols-12 gap-12 items-start">
-              <div className="lg:col-span-7">
-                <div className="bg-white rounded-[48px] p-12 border border-slate-100 shadow-sm mb-12 relative overflow-hidden group">
-                  <div className="absolute top-0 right-0 w-48 h-48 bg-emerald-50 rounded-bl-full -mr-16 -mt-16 transition-transform group-hover:scale-110" />
-                  
-                  <h4 className="text-3xl font-black text-slate-900 mb-10 flex items-center gap-3 relative z-10">
-                    <ShoppingBag className="text-emerald-600" size={32} /> 5. 通用供应链+电商体系：构建交易闭环
-                  </h4>
-                  
-                  <div className="space-y-10 relative z-10">
-                    {/* 架构总结 */}
-                    <div className="p-8 bg-slate-50 rounded-[32px] border border-slate-100">
-                      <div className="flex items-center gap-4 mb-6">
-                        <div className="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center">
-                          <Layers size={24} />
-                        </div>
-                        <h5 className="text-xl font-black text-slate-900">架构总结：交易中台赋能</h5>
-                      </div>
-                      <p className="text-slate-600 font-medium leading-relaxed">
-                        通过<span className="text-emerald-600 font-bold">“交易中台”</span>向上对接通盘供应链，向下通过“酒店智能体”等分销模型，实现商品与服务的快速上架与分销变现。
-                      </p>
-                    </div>
-
-                    {/* 进度说明 */}
-                    <div className="p-8 bg-blue-50 rounded-[32px] border border-blue-100">
-                      <div className="flex items-center gap-4 mb-6">
-                        <div className="w-12 h-12 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center">
-                          <Zap size={24} />
-                        </div>
-                        <h5 className="text-xl font-black text-slate-900">当前进度：开发联调中</h5>
-                      </div>
-                      <p className="text-slate-600 font-medium leading-relaxed mb-6">
-                        预计 <span className="text-blue-600 font-bold">2月10日</span> 完成开发测试，届时将实现从“对话咨询”到“下单交易”的直连。
-                      </p>
-                      <ProgressBar label="电商体系建设进度" percentage={80} color="bg-blue-600" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="lg:col-span-5 sticky top-32">
-                <div className="relative mx-auto w-[300px] rounded-[32px] overflow-hidden shadow-xl border border-slate-200 group transition-all hover:shadow-2xl">
-                  <img src="/131new/image/2-5.png" alt="电商交易闭环截图" className="w-full h-auto block" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </Section>
-
-        {/* 第三大部分：面向个人的劳动者智能体 */}
-        <Section id="personal" title="三、面向个人的劳动者智能体" icon={Users} gradient="from-violet-600 to-fuchsia-600">
-          <div className="mb-24 bg-slate-50 rounded-[48px] p-12 border border-slate-100">
-            <h3 className="text-2xl md:text-3xl font-black text-slate-900 mb-6">个体赋能：打造数字世界的“第二分身”</h3>
-            <p className="text-xl text-slate-600 font-medium leading-relaxed max-w-4xl">
-              为每一位劳动者构建专属智能体，不仅是工作助手，更是能够自主执行任务、管理资源、甚至进行商业变现的数字化身。通过“技能封装”与“经验模型化”，让个体的生产力实现指数级增长。
-            </p>
-          </div>
-
-          <div className="grid lg:grid-cols-12 gap-12 items-start">
-            <div className="lg:col-span-7">
-              <div className="bg-white rounded-[48px] p-12 border border-slate-100 shadow-sm mb-12 relative overflow-hidden group">
-                <div className="absolute top-0 right-0 w-48 h-48 bg-violet-50 rounded-bl-full -mr-16 -mt-16 transition-transform group-hover:scale-110" />
-                
-                <h4 className="text-3xl font-black text-slate-900 mb-10 flex items-center gap-3 relative z-10">
-                  <PenTool className="text-violet-600" size={32} /> 个人劳动者智能体核心价值
+              {/* 2. 多智能体协同 */}
+              <div className="bg-white rounded-[48px] p-10 border border-slate-100 shadow-sm">
+                <h4 className="text-2xl font-black text-slate-900 mb-6 flex items-center gap-3">
+                  <Layers className="text-violet-600" size={28} /> 2. 多智能体协同的智能问答服务
                 </h4>
-                
-                <div className="space-y-10 relative z-10">
+                <div className="p-6 bg-slate-50 rounded-3xl border border-slate-100">
+                  <p className="text-slate-900 font-bold text-lg mb-2">不再是“一个机器人回答所有问题”</p>
+                  <p className="text-slate-600 font-medium">后台自动调度不同职能智能体，用户只需“提问”，系统自动分工。</p>
+                </div>
+              </div>
+
+              {/* 3. 个人专属智能体 */}
+              <div className="bg-gradient-to-br from-violet-600 to-fuchsia-600 rounded-[48px] p-10 text-white shadow-lg">
+                <h4 className="text-2xl font-black mb-4 flex items-center gap-3">
+                  <UserCircle size={28} /> 3. 支持快速生成个人专属智能体
+                </h4>
+                <p className="font-medium text-lg opacity-90">“人人可参与、人人可分发”的旅游智能服务生态</p>
+              </div>
+
+              {/* 4. 从“响应需求”转向“预判需求” */}
+              <div className="bg-white rounded-[48px] p-10 border border-slate-100 shadow-sm">
+                <h4 className="text-3xl font-black text-slate-900 mb-8 tracking-tight flex items-center gap-3">
+                  <Compass className="text-amber-600" size={32} /> 4. 从“响应需求”转向“预判需求”
+                </h4>
+                <p className="text-slate-600 font-medium text-lg mb-8">
+                  结合“身份 + 状态 + 场景”，实时捕捉游客潜在需求，主动推送服务。
+                </p>
+                <div className="space-y-8">
                   {[
-                    {
-                      title: "经验资产化",
-                      desc: "将个人的专业技能与知识沉淀为可调用的智能体模型，实现“知识复用”。",
-                      icon: Lightbulb
-                    },
-                    {
-                      title: "自主任务执行",
-                      desc: "智能体可独立处理日常繁琐事务，如日程安排、信息筛选、初步方案撰写等。",
-                      icon: Zap
-                    },
-                    {
-                      title: "多平台触达",
-                      desc: "支持一键发布至微信、抖音、小红书等社交平台，作为个体的数字代言人。",
-                      icon: Share2
-                    }
-                  ].map((item, idx) => (
-                    <div key={idx} className="flex gap-6 p-6 hover:bg-slate-50 rounded-[32px] transition-colors border border-transparent hover:border-slate-100">
-                      <div className="w-14 h-14 bg-violet-100 text-violet-600 rounded-2xl flex items-center justify-center shrink-0">
-                        <item.icon size={28} />
+                    { title: "用户是谁", desc: "游客 / 从业者 / 企业", icon: Users },
+                    { title: "所处阶段", desc: "来前 / 在途 / 服务中 / 离开后", icon: Target },
+                    { title: "所处场景", desc: "区域 / 企业 / 个人", icon: Globe }
+                  ].map((item, i) => (
+                    <div key={i} className="flex gap-6">
+                      <div className="w-12 h-12 bg-amber-50 text-amber-600 rounded-2xl flex items-center justify-center shrink-0">
+                        <item.icon size={24} />
                       </div>
                       <div>
                         <h5 className="text-xl font-black text-slate-900 mb-2">{item.title}</h5>
@@ -752,15 +452,414 @@ const App = () => {
                   ))}
                 </div>
               </div>
+
             </div>
 
+            {/* 右侧手机展示区：Sticky */}
             <div className="lg:col-span-5 sticky top-32">
-              <div className="relative mx-auto w-[300px] rounded-[32px] overflow-hidden shadow-xl border border-slate-200 group transition-all hover:shadow-2xl">
-                <img src="/131new/image/3-1.png" alt="个人智能体交互界面" className="w-full h-auto block" />
+              <div className="relative mx-auto w-[400px] h-[800px] rounded-[40px] overflow-hidden shadow-xl border border-slate-200 bg-white group">
+                <div className="w-[400px] h-[824px] absolute -top-6 left-0 origin-top-left scale-100">
+                  <iframe 
+                    src="https://arifinfirman788-blip.github.io/HuangxiaoxiV4.0" 
+                    className="w-full h-full border-0"
+                    title="新版首页舞台"
+                    scrolling="no"
+                    allow="accelerometer; autoplay; camera; clipboard-write; encrypted-media; fullscreen; geolocation; gyroscope; microphone; midi; payment; picture-in-picture; web-share"
+                    allowFullScreen
+                  />
+                </div>
+                <div className="absolute inset-0 bg-slate-900/5 flex items-center justify-center pointer-events-none group-hover:opacity-0 transition-opacity duration-300">
+                  <div className="bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-sm text-xs font-bold text-slate-500 flex items-center gap-2">
+                    <PlayCircle size={14} /> 可交互演示
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </Section>
+
+        {/* Section 4: 创新的运营组织形式 */}
+        <Section 
+          id="operation" 
+          title="创新的运营组织形式" 
+          subtitle="生态共建与引流反哺"
+          icon={Network} 
+          gradient="from-blue-600 to-cyan-600"
+        >
+          <div className="grid md:grid-cols-3 gap-6">
+            {/* 高德地图 */}
+            <div 
+              onClick={() => setShowGaodeModal(true)}
+              className="bg-white p-8 rounded-[40px] border border-slate-100 shadow-sm hover:shadow-xl transition-all cursor-pointer group"
+            >
+              <div className="w-14 h-14 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                <MapPin size={28} />
+              </div>
+              <h4 className="text-xl font-black text-slate-900 mb-4">黄小西 x 高德地图</h4>
+              <ul className="space-y-3 text-slate-600 font-medium text-sm">
+                <li>• 2月1日上线高德贵州文旅专区</li>
+                <li>• 构建“内容-规划-导航-服务”闭环</li>
+                <li className="text-blue-600 font-bold">• 上线首日带动日活提升 1500 人次</li>
+              </ul>
+              <div className="mt-6 w-full py-3 rounded-xl bg-blue-50 text-blue-600 font-bold text-sm group-hover:bg-blue-600 group-hover:text-white transition-all flex items-center justify-center gap-2">
+                <Image size={16} /> 查看效果展示
+              </div>
+            </div>
+
+            {/* 反哺引流 */}
+            <div className="bg-white p-8 rounded-[40px] border border-slate-100 shadow-sm hover:shadow-xl transition-all">
+              <div className="w-14 h-14 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center mb-6">
+                <Repeat size={28} />
+              </div>
+              <h4 className="text-xl font-black text-slate-900 mb-4">企业端反哺游客端</h4>
+              <ul className="space-y-3 text-slate-600 font-medium text-sm">
+                <li>• 酒店智能体深度嵌入经营流程</li>
+                <li>• 服务中自然引导使用“黄小西”</li>
+                <li className="text-emerald-600 font-bold">• 带动游客端日活提升约 900 人次</li>
+              </ul>
+            </div>
+
+            {/* 下步规划 */}
+            <div className="bg-white p-8 rounded-[40px] border border-slate-100 shadow-sm hover:shadow-xl transition-all">
+              <div className="w-14 h-14 bg-amber-50 text-amber-600 rounded-2xl flex items-center justify-center mb-6">
+                <Target size={28} />
+              </div>
+              <h4 className="text-xl font-black text-slate-900 mb-4">下步规划</h4>
+              <ul className="space-y-3 text-slate-600 font-medium text-sm">
+                <li>• 酒店与景区智能体接入高德地图</li>
+                <li>• 景区、餐饮、旅行社智能体上线</li>
+                <li className="text-amber-600 font-bold">• 扩大天然流量优势</li>
+              </ul>
+            </div>
+          </div>
+        </Section>
+
+        {/* Section 5: 企业端智能体 */}
+        <Section 
+          id="enterprise" 
+          title="企业端智能体" 
+          subtitle="已进入可复制、可推广阶段"
+          icon={Briefcase} 
+          gradient="from-indigo-600 to-purple-600"
+        >
+          {/* (一) 酒店智能体 */}
+          <div className="mb-24">
+            <SubSectionTitle>（一）酒店智能体上线运行情况</SubSectionTitle>
+            
+            {/* 关键数据 */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+              <DataCard icon={Briefcase} value="200+" label="对接酒店" bgColor="bg-slate-50" color="text-slate-900" />
+              <DataCard icon={CheckCircle} value="105" label="上线试用" bgColor="bg-emerald-50" color="text-emerald-600" />
+              <DataCard icon={Users} value="9886" label="注册用户" bgColor="bg-blue-50" color="text-blue-600" />
+              <DataCard icon={MessageSquare} value="1.9w+" label="AI问答" bgColor="bg-indigo-50" color="text-indigo-600" />
+            </div>
+            <div className="grid md:grid-cols-3 gap-4 mb-16">
+               <div className="bg-slate-50 p-6 rounded-2xl text-center">
+                 <p className="text-slate-500 font-bold text-sm mb-1">累计完成服务工单</p>
+                 <p className="text-2xl font-black text-slate-900">675条</p>
+               </div>
+               <div className="bg-slate-50 p-6 rounded-2xl text-center">
+                 <p className="text-slate-500 font-bold text-sm mb-1">平均每家试用频次</p>
+                 <p className="text-2xl font-black text-slate-900">超200次</p>
+               </div>
+               <div className="bg-slate-50 p-6 rounded-2xl text-center">
+                 <p className="text-slate-500 font-bold text-sm mb-1">服务响应效率提升</p>
+                 <p className="text-2xl font-black text-emerald-600">60%以上</p>
+               </div>
+            </div>
+
+            {/* 标杆案例 & 产品展示 - 拆分为独立行 */}
+            <div className="space-y-16 mb-32">
+              {/* 1. 智能体门户 */}
+              <div className="grid lg:grid-cols-12 gap-8 items-center">
+                <div className="lg:col-span-8">
+                  <div className="bg-white rounded-[48px] p-10 border border-slate-100 shadow-sm">
+                     <h4 className="text-2xl font-black text-slate-900 mb-6">1. 标杆案例：从“单一问询”转向“智能体门户”</h4>
+                     <div className="relative pl-6 border-l-4 border-indigo-500 space-y-4">
+                       <p className="font-bold text-slate-900">贵州饭店“两会特别版”</p>
+                       <p className="text-slate-600">1月23日正式发布，集成<span className="text-indigo-600 font-bold">两会助手、健康小妙招、黄小西、亲子陪伴</span> 4个专项智能体。</p>
+                       <p className="text-slate-600">实现“总控+分身”架构闭环，支持接入不同AI平台的智能体。</p>
+                     </div>
+                  </div>
+                </div>
+                <div className="lg:col-span-4 flex justify-center">
+                  <div className="w-[240px]">
+                    <img src="/131new/image/2-1.png" alt="两会特别版" className="w-full rounded-[24px] shadow-lg border border-slate-100" />
+                  </div>
+                </div>
+              </div>
+
+              {/* 2. SaaS化 */}
+              <div className="grid lg:grid-cols-12 gap-8 items-center">
+                <div className="lg:col-span-8">
+                  <div className="bg-white rounded-[48px] p-10 border border-slate-100 shadow-sm">
+                     <h4 className="text-2xl font-black text-slate-900 mb-6">2. SaaS化架构与极速部署</h4>
+                     <p className="text-slate-600 mb-4">通过<span className="text-indigo-600 font-bold">交互式对话</span>引导酒店完成数字化配置，实现“零门槛”入驻。</p>
+                     <ProgressBar label="酒店注册助手设计完成度" percentage={100} />
+                     <p className="text-sm text-slate-500 mt-2">预计年前正式上线，实现分钟级自主注册。</p>
+                  </div>
+                </div>
+                <div className="lg:col-span-4 flex justify-center">
+                  <div className="w-[240px]">
+                    <img src="/131new/image/2-2.png" alt="SaaS注册" className="w-full rounded-[24px] shadow-lg border border-slate-100" />
+                  </div>
+                </div>
+              </div>
+
+              {/* 3. 多端数字分身 */}
+              <div className="grid lg:grid-cols-12 gap-8 items-center">
+                <div className="lg:col-span-8">
+                  <div className="bg-white rounded-[48px] p-10 border border-slate-100 shadow-sm">
+                     <h4 className="text-2xl font-black text-slate-900 mb-6 flex items-center gap-3">
+                       <UserCircle className="text-blue-600" size={28} /> 3. 多端数字分身
+                     </h4>
+                     <p className="text-slate-600 mb-4">全场景角色覆盖：住客端、酒店/员工端。</p>
+                     <ProgressBar label="年前全部上线" percentage={90} color="bg-blue-600" />
+                  </div>
+                </div>
+                <div className="lg:col-span-4 flex justify-center">
+                  <div className="w-[240px]">
+                    <img src="/131new/image/2-3.png" alt="多端协同" className="w-full rounded-[24px] shadow-lg border border-slate-100" />
+                  </div>
+                </div>
+              </div>
+
+              {/* 4. 硬件设备落地 */}
+              <div className="grid lg:grid-cols-12 gap-8 items-center">
+                <div className="lg:col-span-8">
+                  <div className="bg-white rounded-[48px] p-10 border border-slate-100 shadow-sm">
+                     <h4 className="text-2xl font-black text-slate-900 mb-6 flex items-center gap-3">
+                       <Cpu className="text-amber-600" size={28} /> 4. 硬件设备落地
+                     </h4>
+                     <p className="text-slate-600 mb-4">ODM贴牌模式，喵伴小音箱已测通。预计3月中出量产样机。</p>
+                     <ProgressBar label="硬件集成进度" percentage={75} color="bg-amber-600" />
+                  </div>
+                </div>
+                <div className="lg:col-span-4 flex justify-center">
+                  <div className="w-[240px]">
+                    <img src="/131new/image/2-4.png" alt="硬件交互" className="w-full rounded-[24px] shadow-lg border border-slate-100" />
+                  </div>
+                </div>
+              </div>
+
+              {/* 5. 通用供应链 */}
+              <div className="grid lg:grid-cols-12 gap-8 items-center">
+                <div className="lg:col-span-8">
+                  <div className="bg-white rounded-[48px] p-10 border border-slate-100 shadow-sm">
+                     <h4 className="text-2xl font-black text-slate-900 mb-6 flex items-center gap-3">
+                       <ShoppingBag className="text-emerald-600" size={28} /> 5. 通用供应链
+                     </h4>
+                     <p className="text-slate-600 mb-4">交易中台赋能，预计2月10日完成开发测试，实现交易闭环。</p>
+                     <ProgressBar label="开发测试进度" percentage={80} color="bg-emerald-600" />
+                  </div>
+                </div>
+                <div className="lg:col-span-4 flex justify-center">
+                  <div className="w-[240px]">
+                    <img src="/131new/image/2-5.png" alt="交易闭环" className="w-full rounded-[24px] shadow-lg border border-slate-100" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* (二) 景区 & (三) 其他 */}
+          <div className="space-y-12">
+            {/* 景区智能体 */}
+            <div className="grid lg:grid-cols-12 gap-8 items-center">
+              <div className="lg:col-span-8">
+                <div className="bg-white p-10 rounded-[48px] border border-slate-100 shadow-sm h-full">
+                  <h4 className="text-2xl font-black text-slate-900 mb-6">（二）景区智能体：1.0版本完成并试点</h4>
+                  
+                  <div className="space-y-6 mb-8">
+                    <div className="flex items-start gap-4">
+                      <div className="w-10 h-10 bg-indigo-100 text-indigo-600 rounded-xl flex items-center justify-center shrink-0 font-black">问</div>
+                      <div>
+                        <h5 className="text-lg font-bold text-slate-900 mb-1">涵盖全覆盖的智能问答</h5>
+                        <p className="text-slate-600 text-sm leading-relaxed">基本信息、游玩项目、活动演绎、攻略、票务、服务设施、历史文化等景区信息。</p>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-start gap-4">
+                      <div className="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center shrink-0 font-black">游</div>
+                      <div>
+                        <h5 className="text-lg font-bold text-slate-900 mb-1">打造“活地图”</h5>
+                        <p className="text-slate-600 text-sm leading-relaxed">支持游览路线规划及“跟随式”语音讲解。</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-4 text-sm font-medium text-slate-500 mb-6">
+                    <span className="flex items-center gap-2"><div className="w-2 h-2 bg-indigo-500 rounded-full"/> 已在4家景区试点</span>
+                  </div>
+
+                  <div className="p-4 bg-indigo-50 rounded-2xl text-indigo-900 font-bold text-center text-sm">
+                    计划旅发大会实现“黄小西吃晚饭”全面上线及 2.0 版本发布
+                  </div>
+                </div>
+              </div>
+              <div className="lg:col-span-4 flex justify-center gap-4">
+                <div className="w-[160px] aspect-[9/19.5] bg-slate-100 rounded-[24px] border border-slate-200 flex items-center justify-center text-slate-400 text-xs font-bold shadow-sm">
+                  展示位 1
+                </div>
+                <div className="w-[160px] aspect-[9/19.5] bg-slate-100 rounded-[24px] border border-slate-200 flex items-center justify-center text-slate-400 text-xs font-bold shadow-sm">
+                  展示位 2
+                </div>
+              </div>
+            </div>
+
+            {/* 其他行业 */}
+            <div className="grid lg:grid-cols-12 gap-8 items-center">
+              <div className="lg:col-span-8">
+                <div className="bg-white p-10 rounded-[48px] border border-slate-100 shadow-sm h-full">
+                  <h4 className="text-2xl font-black text-slate-900 mb-4">（三）其他涉旅行业智能体</h4>
+                  <ul className="space-y-4">
+                    <li className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-orange-100 text-orange-600 rounded-xl flex items-center justify-center"><Zap size={20}/></div>
+                      <span className="font-bold text-slate-700">餐饮智能体已测试运行</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <div className="w-10 h-10 bg-teal-100 text-teal-600 rounded-xl flex items-center justify-center shrink-0"><Globe size={20}/></div>
+                      <div>
+                        <span className="font-bold text-slate-700 block mb-1">旅行社、导游智能体完成方案设计</span>
+                        <span className="text-slate-500 text-sm font-medium">覆盖“团前—团中—团后”全流程服务</span>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div className="lg:col-span-4 flex justify-center gap-4">
+                <div className="w-[160px] aspect-[9/19.5] bg-slate-100 rounded-[24px] border border-slate-200 flex items-center justify-center text-slate-400 text-xs font-bold shadow-sm">
+                  展示位 1
+                </div>
+                <div className="w-[160px] aspect-[9/19.5] bg-slate-100 rounded-[24px] border border-slate-200 flex items-center justify-center text-slate-400 text-xs font-bold shadow-sm">
+                  展示位 2
+                </div>
+              </div>
+            </div>
+          </div>
+        </Section>
+
+        {/* Section 6: 政府端 */}
+        <Section 
+          id="gov" 
+          title="政府端" 
+          subtitle="文旅智慧驾驶舱进入试点运行"
+          icon={LayoutDashboard} 
+          gradient="from-slate-600 to-slate-800"
+        >
+           <div className="bg-slate-900 text-white rounded-[48px] p-12 relative overflow-hidden">
+             <div className="absolute top-0 right-0 w-96 h-96 bg-indigo-600 rounded-full blur-[100px] opacity-30 -mr-20 -mt-20"></div>
+             
+             <div className="grid md:grid-cols-2 gap-12 relative z-10">
+               <div className="space-y-12">
+                 <div>
+                   <h4 className="text-2xl font-black text-indigo-400 mb-4">1. 从“看数据”到“能分析、能预警、能调度”</h4>
+                   <ul className="space-y-3 text-slate-300">
+                     <li className="flex gap-3"><div className="w-1.5 h-1.5 bg-indigo-400 rounded-full mt-2.5"/> 客流、消费、产业数据统一汇聚</li>
+                     <li className="flex gap-3"><div className="w-1.5 h-1.5 bg-indigo-400 rounded-full mt-2.5"/> 自动分析变化、主动预警，支持自然语言追问分析</li>
+                     <li className="flex gap-3"><div className="w-1.5 h-1.5 bg-indigo-400 rounded-full mt-2.5"/> 移动端驾驶舱，实现“掌上决策”</li>
+                   </ul>
+                 </div>
+                 
+                 <div>
+                   <h4 className="text-2xl font-black text-indigo-400 mb-4">2. 多源数据深度整合</h4>
+                   <p className="text-slate-300 leading-relaxed">
+                     地图、运营商、OTA、公共数据等多源数据交叉验证，确保数据真实准确。
+                   </p>
+                 </div>
+               </div>
+
+               <div className="space-y-12">
+                 <div>
+                   <h4 className="text-2xl font-black text-indigo-400 mb-4">3. 可层层穿透，协同推进</h4>
+                   <ul className="space-y-3 text-slate-300">
+                     <li className="flex gap-3"><div className="w-1.5 h-1.5 bg-indigo-400 rounded-full mt-2.5"/> 省级 + 市州同步适配，从省一路点到具体景区</li>
+                     <li className="flex gap-3"><div className="w-1.5 h-1.5 bg-indigo-400 rounded-full mt-2.5"/> 同步推进应急指挥调度平台</li>
+                   </ul>
+                 </div>
+
+                 <div>
+                   <h4 className="text-2xl font-black text-indigo-400 mb-4">4. 真正给基层减负的“智能问策”</h4>
+                   <p className="text-slate-300 mb-3 font-medium">让 AI 帮基层查资料、找政策、做整理</p>
+                   <ul className="space-y-3 text-slate-400 text-sm">
+                     <li className="flex gap-3"><div className="w-1.5 h-1.5 bg-slate-500 rounded-full mt-2"/> 内部知识库快速应答</li>
+                     <li className="flex gap-3"><div className="w-1.5 h-1.5 bg-slate-500 rounded-full mt-2"/> 自动标注来源、确保权威</li>
+                   </ul>
+                 </div>
+               </div>
+             </div>
+           </div>
+        </Section>
+
+        {/* Section 7: IP与品牌生态 */}
+        <Section 
+          id="ip" 
+          title="IP与品牌生态" 
+          subtitle="“黄小西家族”"
+          icon={UserCircle} 
+          gradient="from-pink-600 to-rose-600"
+        >
+          <div className="grid md:grid-cols-3 gap-8 mb-16">
+            <div className="bg-white p-8 rounded-[40px] border border-slate-100 shadow-sm text-center">
+              <div className="w-20 h-20 bg-pink-50 text-pink-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Users size={32} />
+              </div>
+              <h4 className="text-xl font-black text-slate-900 mb-2">IP形象体系</h4>
+              <p className="text-slate-600">融合贵州17个世居民族文化，构建“黄小西家族”。</p>
+            </div>
+            <div className="bg-white p-8 rounded-[40px] border border-slate-100 shadow-sm text-center">
+              <div className="w-20 h-20 bg-purple-50 text-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Cpu size={32} />
+              </div>
+              <h4 className="text-xl font-black text-slate-900 mb-2">载体可落地</h4>
+              <p className="text-slate-600">智能芯片、全息屏等多形态载体应用。</p>
+            </div>
+            <div className="bg-white p-8 rounded-[40px] border border-slate-100 shadow-sm text-center">
+              <div className="w-20 h-20 bg-orange-50 text-orange-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Video size={32} />
+              </div>
+              <h4 className="text-xl font-black text-slate-900 mb-2">品牌传播</h4>
+              <p className="text-slate-600">视频矩阵同步推进，打造文旅超级符号。</p>
+            </div>
+          </div>
+
+          {/* 长图与视频展示 */}
+          <div className="grid lg:grid-cols-2 gap-12 items-start">
+            {/* 左侧：长图展示 */}
+            <div className="space-y-6">
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-10 h-10 bg-pink-100 text-pink-600 rounded-xl flex items-center justify-center font-black">图</div>
+                <h4 className="text-xl font-black text-slate-900">IP家族全景图</h4>
+              </div>
+              <div className="rounded-[32px] overflow-hidden shadow-xl border border-slate-100 bg-white">
+                <img 
+                  src="/131new/image/微信图片_2026-02-02_210616_620.png" 
+                  alt="IP家族长图" 
+                  className="w-full h-auto block"
+                />
+              </div>
+            </div>
+
+            {/* 右侧：视频展示 */}
+            <div className="space-y-6 sticky top-32">
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-10 h-10 bg-purple-100 text-purple-600 rounded-xl flex items-center justify-center font-black">视</div>
+                <h4 className="text-xl font-black text-slate-900">品牌宣传视频</h4>
+              </div>
+              <div className="rounded-[32px] overflow-hidden shadow-xl border border-slate-100 bg-black aspect-video relative group">
+                <video 
+                  src="/131new/video/2.mp4" 
+                  controls 
+                  className="w-full h-full object-cover"
+                  poster="/131new/image/video-poster-placeholder.png" // 可选：添加封面图
+                >
+                  您的浏览器不支持视频播放。
+                </video>
+              </div>
+            </div>
+          </div>
+        </Section>
+
       </main>
 
       <footer className="bg-white py-24 px-6 border-t border-slate-100">
@@ -777,30 +876,80 @@ const App = () => {
             </p>
           </div>
           <div className="flex gap-20">
-            <div className="flex flex-col gap-6">
-              <span className="font-black text-xs uppercase tracking-[0.3em] text-slate-400">板块导航</span>
-              <a href="#strategy" className="font-black text-slate-900 hover:text-indigo-600 transition-colors uppercase tracking-widest text-sm">一、核心战略</a>
-              <a href="#enterprise" className="font-black text-slate-900 hover:text-indigo-600 transition-colors uppercase tracking-widest text-sm">二、企业方案</a>
-              <a href="#personal" className="font-black text-slate-900 hover:text-indigo-600 transition-colors uppercase tracking-widest text-sm">三、个人智能体</a>
-            </div>
-            <div className="flex flex-col gap-6">
-              <span className="font-black text-xs uppercase tracking-[0.3em] text-slate-400">资源链接</span>
-              <a href="#" className="font-black text-slate-900 hover:text-indigo-600 transition-colors uppercase tracking-widest text-sm">架构图谱</a>
-              <a href="#" className="font-black text-slate-900 hover:text-indigo-600 transition-colors uppercase tracking-widest text-sm">设计规范</a>
+             {/* 简化 Footer 链接 */}
+             <div className="flex flex-col gap-6">
+              <span className="font-black text-xs uppercase tracking-[0.3em] text-slate-400">导航</span>
+              <a href="#overview" className="font-black text-slate-900 hover:text-indigo-600 transition-colors uppercase tracking-widest text-sm">回到顶部</a>
             </div>
           </div>
         </div>
         <div className="max-w-7xl mx-auto mt-24 pt-12 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center gap-8">
-          <p className="text-slate-400 font-black text-sm tracking-[0.2em] uppercase">© 2026 AI STRATEGY GROUP. ALL RIGHTS RESERVED.</p>
-          <div className="flex gap-10">
-            <Share2 className="text-slate-400 hover:text-indigo-600 cursor-pointer transition-colors" size={24} />
-            <Settings className="text-slate-400 hover:text-indigo-600 cursor-pointer transition-colors" size={24} />
-            <Globe className="text-slate-400 hover:text-indigo-600 cursor-pointer transition-colors" size={24} />
-          </div>
+          <p className="text-slate-400 font-black text-sm tracking-[0.2em] uppercase">© 2026 AI STRATEGY GROUP.</p>
         </div>
       </footer>
+
+      {/* Image Modal */}
+      {showGaodeModal && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-10">
+          <div 
+            className="absolute inset-0 bg-slate-900/90 backdrop-blur-sm" 
+            onClick={() => setShowGaodeModal(false)}
+          />
+          <div className="relative z-10 bg-transparent w-full max-w-6xl flex flex-col md:flex-row gap-8 items-center justify-center">
+             <button 
+               onClick={() => setShowGaodeModal(false)}
+               className="absolute -top-12 right-0 text-white/70 hover:text-white transition-colors"
+             >
+               <X size={32} />
+             </button>
+             
+             {/* 横图 */}
+              <div className="w-full md:w-2/3">
+                <div className="aspect-video bg-slate-800/50 rounded-2xl overflow-hidden border border-white/10 shadow-2xl flex items-center justify-center relative backdrop-blur-sm">
+                  <img 
+                    src="/131new/image/1d8057d625a906bbc2e3a6660be207ab.png" 
+                    alt="运营效果展示" 
+                    className="w-full h-full object-contain p-2"
+                  />
+                </div>
+                <p className="text-center text-white/50 text-sm mt-4 font-bold">运营效果展示</p>
+              </div>
+ 
+              {/* 竖图 */}
+              <div className="w-full md:w-1/3">
+                <div className="aspect-[9/16] bg-slate-800/50 rounded-2xl overflow-hidden border border-white/10 shadow-2xl flex items-center justify-center relative backdrop-blur-sm">
+                  <img 
+                    src="/131new/image/246f8d254afcdecd35a289c87a616e5c.png" 
+                    alt="交互界面展示" 
+                    className="w-full h-full object-contain p-2"
+                  />
+                </div>
+                <p className="text-center text-white/50 text-sm mt-4 font-bold">交互界面展示</p>
+              </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
+
+// 补充 CheckCircle 定义，之前漏了
+const CheckCircle = ({ size, className }) => (
+  <svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    width={size} 
+    height={size} 
+    viewBox="0 0 24 24" 
+    fill="none" 
+    stroke="currentColor" 
+    strokeWidth="2" 
+    strokeLinecap="round" 
+    strokeLinejoin="round" 
+    className={className}
+  >
+    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+    <polyline points="22 4 12 14.01 9 11.01" />
+  </svg>
+);
 
 export default App;
