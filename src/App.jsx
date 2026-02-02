@@ -747,11 +747,11 @@ const App = () => {
                 </div>
               </div>
               <div className="lg:col-span-4 flex justify-center gap-4">
-                <div className="w-[160px] aspect-[9/19.5] bg-slate-100 rounded-[24px] border border-slate-200 flex items-center justify-center text-slate-400 text-xs font-bold shadow-sm">
-                  展示位 1
+                <div className="w-[160px] aspect-[9/19.5] bg-slate-100 rounded-[24px] border border-slate-200 flex items-center justify-center text-slate-400 text-xs font-bold shadow-sm overflow-hidden">
+                  <img src="/202new/image/3c107169e9a1b428157a2a4dd7e16c1d.jpg" alt="景区展示1" className="w-full h-full object-cover" />
                 </div>
-                <div className="w-[160px] aspect-[9/19.5] bg-slate-100 rounded-[24px] border border-slate-200 flex items-center justify-center text-slate-400 text-xs font-bold shadow-sm">
-                  展示位 2
+                <div className="w-[160px] aspect-[9/19.5] bg-slate-100 rounded-[24px] border border-slate-200 flex items-center justify-center text-slate-400 text-xs font-bold shadow-sm overflow-hidden">
+                  <img src="/202new/image/2f0940dc11c58bf3a57634678ec7dee0.jpg" alt="景区展示2" className="w-full h-full object-cover" />
                 </div>
               </div>
             </div>
