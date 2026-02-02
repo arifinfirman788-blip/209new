@@ -375,14 +375,19 @@ const App = () => {
             <div className="lg:col-span-5 sticky top-32">
               <div className="bg-slate-50 rounded-[32px] p-6 border border-slate-200 shadow-xl">
                 <div className="grid grid-cols-4 gap-2 mb-4">
-                  {[1, 2, 3, 4].map((item) => (
-                    <div key={item} className="aspect-[9/19.5] bg-white rounded-lg border border-slate-100 flex items-center justify-center text-slate-300 text-[10px] font-bold shadow-sm">
-                      {item}
+                  {[
+                    '/202new/image/0c518697542887c4c842bd55ec6f01f9.jpg',
+                    '/202new/image/2-1.png',
+                    '/202new/image/2f0940dc11c58bf3a57634678ec7dee0.jpg',
+                    '/202new/image/e8a91d5c8c3b6e0a9e53d83e7cc4d288.jpg'
+                  ].map((src, index) => (
+                    <div key={index} className="aspect-[9/19.5] bg-white rounded-lg border border-slate-100 flex items-center justify-center text-slate-300 text-[10px] font-bold shadow-sm overflow-hidden">
+                      <img src={src} alt={`展示图${index + 1}`} className="w-full h-full object-cover" />
                     </div>
                   ))}
                 </div>
-                <div className="aspect-[16/10] bg-white rounded-xl border border-slate-100 flex items-center justify-center text-slate-400 text-xs font-bold shadow-sm">
-                  PC端展示位
+                <div className="aspect-[16/10] bg-white rounded-xl border border-slate-100 flex items-center justify-center text-slate-400 text-xs font-bold shadow-sm overflow-hidden">
+                  <img src="/202new/image/4991f55ea85abc50aa6a75c6effb763f.png" alt="PC端展示位" className="w-full h-full object-cover" />
                 </div>
               </div>
               <div className="w-24 h-2 bg-slate-800/10 mx-auto mt-4 rounded-full blur-sm" />
