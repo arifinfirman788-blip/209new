@@ -1,7 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import hotelData from './data/hotel_data.json';
-import RotatingText from './RotatingText';
 import { 
   Target, 
   Layers, 
@@ -219,30 +218,39 @@ const App = () => {
               <div className="inline-block px-6 py-2 bg-indigo-50 text-indigo-600 rounded-full text-xs font-black uppercase tracking-[0.3em] mb-10">
                 Product Design Strategic Report
               </div>
-              <h1 className="text-6xl md:text-9xl font-black text-slate-900 mb-10 tracking-tighter leading-[0.85]">
-                <motion.span
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.2 }}
-                >
+              <h1 className="text-6xl md:text-9xl font-black text-slate-900 mb-10 tracking-tighter leading-[0.85] text-center">
+                <span>
                   黄小西
-                </motion.span>
+                </span>
                 <br />
                 <div className="flex justify-center mt-2">
-                  <RotatingText 
-                    texts={['多彩', '智能', 'AI应用生态']} 
-                    mainClassName="px-2 sm:px-2 md:px-3 bg-indigo-600 text-white overflow-hidden py-0.5 sm:py-1 md:py-2 justify-center rounded-lg" 
-                    staggerFrom={"last"} 
-                    initial={{ y: "100%" }} 
-                    animate={{ y: 0 }} 
-                    exit={{ y: "-120%" }} 
-                    staggerDuration={0.025} 
-                    splitLevelClassName="overflow-hidden pb-0.5 sm:pb-1 md:pb-1" 
-                    transition={{ type: "spring", damping: 30, stiffness: 400 }} 
-                    rotationInterval={2000} 
-                  />
+                  <span className="px-2 sm:px-2 md:px-3 bg-indigo-600 text-white rounded-lg py-0.5 sm:py-1 md:py-2">
+                    AI应用生态
+                  </span>
                 </div>
               </h1>
+
+              {/* 3点汇报重点 */}
+              <div className="flex flex-col md:flex-row gap-4 mt-8">
+                <div className="bg-white/80 backdrop-blur-sm border border-slate-200 rounded-2xl px-6 py-4 shadow-sm flex items-center gap-3">
+                  <div className="w-8 h-8 bg-red-50 text-red-600 rounded-lg flex items-center justify-center shrink-0">
+                    <Target size={18} />
+                  </div>
+                  <span className="font-bold text-slate-800 text-sm">全力以赴面对AI应用决战之年</span>
+                </div>
+                <div className="bg-white/80 backdrop-blur-sm border border-slate-200 rounded-2xl px-6 py-4 shadow-sm flex items-center gap-3">
+                  <div className="w-8 h-8 bg-indigo-50 text-indigo-600 rounded-lg flex items-center justify-center shrink-0">
+                    <Users size={18} />
+                  </div>
+                  <span className="font-bold text-slate-800 text-sm">用户规模正以十倍速度增长</span>
+                </div>
+                <div className="bg-white/80 backdrop-blur-sm border border-slate-200 rounded-2xl px-6 py-4 shadow-sm flex items-center gap-3">
+                  <div className="w-8 h-8 bg-emerald-50 text-emerald-600 rounded-lg flex items-center justify-center shrink-0">
+                    <Briefcase size={18} />
+                  </div>
+                  <span className="font-bold text-slate-800 text-sm">企业级智能体全面开花</span>
+                </div>
+              </div>
             </motion.div>
         </section>
 
@@ -260,7 +268,7 @@ const App = () => {
                 <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center">
                   <Calendar size={24} />
                 </div>
-                <h4 className="text-xl font-black text-slate-900">重要会议</h4>
+                <h4 className="text-xl font-black text-slate-900">重要指示</h4>
               </div>
               <ul className="space-y-4">
                 <li className="flex gap-3">
@@ -270,6 +278,10 @@ const App = () => {
                 <li className="flex gap-3">
                   <div className="w-1.5 h-1.5 bg-blue-500 rounded-full mt-2.5" />
                   <p className="text-slate-600 font-medium"><span className="text-slate-900 font-bold">2026.01.07</span> 贵旅集团现场调研会</p>
+                </li>
+                <li className="flex gap-3">
+                  <div className="w-1.5 h-1.5 bg-blue-500 rounded-full mt-2.5" />
+                  <p className="text-slate-600 font-medium"><span className="text-slate-900 font-bold">2026.01.13</span> 省领导重要批示</p>
                 </li>
               </ul>
             </div>
@@ -321,7 +333,7 @@ const App = () => {
               {/* 工作视频轮播 */}
               <div className="mt-6 rounded-2xl overflow-hidden shadow-sm border border-slate-100 bg-black h-32 relative group">
                 <video 
-                  src="/202new/video/f688a180eaffc8c281117271dd6bd668.mp4" 
+                  src={import.meta.env.BASE_URL + "video/f688a180eaffc8c281117271dd6bd668.mp4"} 
                   autoPlay
                   loop
                   muted
@@ -376,10 +388,10 @@ const App = () => {
               <div className="bg-slate-50 rounded-[32px] p-6 border border-slate-200 shadow-xl">
                 <div className="grid grid-cols-4 gap-2 mb-4">
                   {[
-                    '/202new/image/0c518697542887c4c842bd55ec6f01f9.jpg',
-                    '/202new/image/2-1.png',
-                    '/202new/image/2f0940dc11c58bf3a57634678ec7dee0.jpg',
-                    '/202new/image/e8a91d5c8c3b6e0a9e53d83e7cc4d288.jpg'
+                    import.meta.env.BASE_URL + 'image/0c518697542887c4c842bd55ec6f01f9.jpg',
+                    import.meta.env.BASE_URL + 'image/2-1.png',
+                    import.meta.env.BASE_URL + 'image/2f0940dc11c58bf3a57634678ec7dee0.jpg',
+                    import.meta.env.BASE_URL + 'image/e8a91d5c8c3b6e0a9e53d83e7cc4d288.jpg'
                   ].map((src, index) => (
                     <div key={index} className="aspect-[9/19.5] bg-white rounded-lg border border-slate-100 flex items-center justify-center text-slate-300 text-[10px] font-bold shadow-sm overflow-hidden">
                       <img src={src} alt={`展示图${index + 1}`} className="w-full h-full object-cover" />
@@ -387,7 +399,7 @@ const App = () => {
                   ))}
                 </div>
                 <div className="aspect-[16/10] bg-white rounded-xl border border-slate-100 flex items-center justify-center text-slate-400 text-xs font-bold shadow-sm overflow-hidden">
-                  <img src="/202new/image/4991f55ea85abc50aa6a75c6effb763f.png" alt="PC端展示位" className="w-full h-full object-cover" />
+                  <img src={import.meta.env.BASE_URL + "image/4991f55ea85abc50aa6a75c6effb763f.png"} alt="PC端展示位" className="w-full h-full object-cover" />
                 </div>
               </div>
               <div className="w-24 h-2 bg-slate-800/10 mx-auto mt-4 rounded-full blur-sm" />
@@ -616,10 +628,10 @@ const App = () => {
                      <h4 className="text-2xl font-black text-slate-900 mb-6">1. 标杆案例与产品进展</h4>
                      <div className="relative pl-6 border-l-4 border-indigo-500 space-y-6">
                        <div>
-                         <p className="font-bold text-slate-900 text-lg mb-2 flex items-center gap-2">
+                         <div className="font-bold text-slate-900 text-lg mb-2 flex items-center gap-2">
                            <div className="w-2 h-2 bg-indigo-500 rounded-full" />
                            标杆案例
-                         </p>
+                         </div>
                          <ul className="space-y-2 pl-4 text-slate-600">
                            <li>• 贵州饭店“两会特别版”智能服务</li>
                            <li>• 获代表委员好评</li>
@@ -627,10 +639,10 @@ const App = () => {
                        </div>
                        
                        <div>
-                         <p className="font-bold text-slate-900 text-lg mb-2 flex items-center gap-2">
+                         <div className="font-bold text-slate-900 text-lg mb-2 flex items-center gap-2">
                            <div className="w-2 h-2 bg-indigo-500 rounded-full" />
                            产品进展
-                         </p>
+                         </div>
                          <ul className="space-y-2 pl-4 text-slate-600">
                            <li>• 聚焦住客服务提质，打造多类场景化智能体</li>
                          </ul>
@@ -640,7 +652,7 @@ const App = () => {
                 </div>
                 <div className="lg:col-span-4 flex justify-center">
                   <div className="w-[240px]">
-                    <img src="/202new/image/2-1.png" alt="两会特别版" className="w-full rounded-[24px] shadow-lg border border-slate-100" />
+                    <img src={import.meta.env.BASE_URL + "image/2-1.png"} alt="两会特别版" className="w-full rounded-[24px] shadow-lg border border-slate-100" />
                   </div>
                 </div>
               </div>
@@ -682,7 +694,7 @@ const App = () => {
                 </div>
                 <div className="lg:col-span-4 flex justify-center">
                   <div className="w-[240px]">
-                    <img src="/202new/image/2-3.png" alt="SaaS注册" loading="lazy" className="w-full rounded-[24px] shadow-lg border border-slate-100" />
+                    <img src={import.meta.env.BASE_URL + "image/2-3.png"} alt="SaaS注册" loading="lazy" className="w-full rounded-[24px] shadow-lg border border-slate-100" />
                   </div>
                 </div>
               </div>
@@ -700,7 +712,7 @@ const App = () => {
                 </div>
                 <div className="lg:col-span-4 flex justify-center">
                   <div className="w-[240px]">
-                    <img src="/202new/image/868dbb8bc5354d00ed5c90e27c26931d.png" alt="多端协同" loading="lazy" className="w-full rounded-[24px] shadow-lg border border-slate-100" />
+                    <img src={import.meta.env.BASE_URL + "image/868dbb8bc5354d00ed5c90e27c26931d.png"} alt="多端协同" loading="lazy" className="w-full rounded-[24px] shadow-lg border border-slate-100" />
                   </div>
                 </div>
               </div>
@@ -718,7 +730,7 @@ const App = () => {
                 </div>
                 <div className="lg:col-span-4 flex justify-center">
                   <div className="w-[240px]">
-                    <img src="/202new/image/2-4.png" alt="硬件交互" className="w-full rounded-[24px] shadow-lg border border-slate-100" />
+                    <img src={import.meta.env.BASE_URL + "image/2-4.png"} alt="硬件交互" className="w-full rounded-[24px] shadow-lg border border-slate-100" />
                   </div>
                 </div>
               </div>
@@ -745,7 +757,7 @@ const App = () => {
                 </div>
                 <div className="lg:col-span-4 flex justify-center">
                   <div className="w-[240px]">
-                    <img src="/202new/image/c143b31a430951881367b7e8c49abdcb.png" alt="交易闭环" className="w-full rounded-[24px] shadow-lg border border-slate-100" />
+                    <img src={import.meta.env.BASE_URL + "image/c143b31a430951881367b7e8c49abdcb.png"} alt="交易闭环" className="w-full rounded-[24px] shadow-lg border border-slate-100" />
                   </div>
                 </div>
               </div>
@@ -773,10 +785,10 @@ const App = () => {
               </div>
               <div className="lg:col-span-4 flex justify-center gap-4">
                 <div className="w-[160px] aspect-[9/19.5] bg-slate-100 rounded-[24px] border border-slate-200 flex items-center justify-center text-slate-400 text-xs font-bold shadow-sm overflow-hidden">
-                  <img src="/202new/image/3c107169e9a1b428157a2a4dd7e16c1d.jpg" alt="景区展示1" loading="lazy" className="w-full h-full object-cover" />
+                  <img src={import.meta.env.BASE_URL + "image/3c107169e9a1b428157a2a4dd7e16c1d.jpg"} alt="景区展示1" loading="lazy" className="w-full h-full object-cover" />
                 </div>
                 <div className="w-[160px] aspect-[9/19.5] bg-slate-100 rounded-[24px] border border-slate-200 flex items-center justify-center text-slate-400 text-xs font-bold shadow-sm overflow-hidden">
-                  <img src="/202new/image/2f0940dc11c58bf3a57634678ec7dee0.jpg" alt="景区展示2" className="w-full h-full object-cover" />
+                  <img src={import.meta.env.BASE_URL + "image/2f0940dc11c58bf3a57634678ec7dee0.jpg"} alt="景区展示2" className="w-full h-full object-cover" />
                 </div>
               </div>
             </div>
@@ -803,10 +815,10 @@ const App = () => {
               </div>
               <div className="lg:col-span-4 flex justify-center gap-4">
                 <div className="w-[160px] aspect-[9/19.5] bg-slate-100 rounded-[24px] border border-slate-200 flex items-center justify-center text-slate-400 text-xs font-bold shadow-sm overflow-hidden">
-                  <img src="/202new/image/e8a91d5c8c3b6e0a9e53d83e7cc4d288.jpg" alt="餐饮智能体" loading="lazy" className="w-full h-full object-cover" />
+                  <img src={import.meta.env.BASE_URL + "image/e8a91d5c8c3b6e0a9e53d83e7cc4d288.jpg"} alt="餐饮智能体" loading="lazy" className="w-full h-full object-cover" />
                 </div>
                 <div className="w-[160px] aspect-[9/19.5] bg-slate-100 rounded-[24px] border border-slate-200 flex items-center justify-center text-slate-400 text-xs font-bold shadow-sm overflow-hidden">
-                  <img src="/202new/image/3077fa4fc9e050a4ad72f48ebcc216d2.png" alt="导游智能体" loading="lazy" className="w-full h-full object-cover" />
+                  <img src={import.meta.env.BASE_URL + "image/3077fa4fc9e050a4ad72f48ebcc216d2.png"} alt="导游智能体" loading="lazy" className="w-full h-full object-cover" />
                 </div>
               </div>
             </div>
@@ -871,7 +883,7 @@ const App = () => {
                  <a href="https://glsw-provincescreen-test.aihuangxiaoxi.com/admin/#/index" target="_blank" rel="noopener noreferrer" className="group block">
                    <div className="bg-slate-800/50 rounded-2xl p-2 border border-slate-700/50 hover:border-indigo-500/50 transition-all shadow-xl">
                      <div className="aspect-[16/10] bg-slate-900 rounded-xl overflow-hidden relative">
-                       <img src="/202new/image/4991f55ea85abc50aa6a75c6effb763f.png" alt="PC端驾驶舱" className="w-full h-full object-cover" />
+                       <img src={import.meta.env.BASE_URL + "image/4991f55ea85abc50aa6a75c6effb763f.png"} alt="PC端驾驶舱" className="w-full h-full object-cover" />
                        <div className="absolute inset-0 bg-indigo-900/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                          <span className="bg-white/10 backdrop-blur-md text-white px-4 py-2 rounded-full text-sm font-bold border border-white/20">点击访问管理后台</span>
                        </div>
@@ -888,7 +900,7 @@ const App = () => {
                    <a href="https://glsw-provincescreen-test.aihuangxiaoxi.com/h5/#/" target="_blank" rel="noopener noreferrer" className="group block w-[200px]">
                      <div className="bg-slate-800/50 rounded-[32px] p-2 border border-slate-700/50 hover:border-indigo-500/50 transition-all shadow-xl">
                        <div className="aspect-[9/19.5] bg-slate-900 rounded-[24px] overflow-hidden relative">
-                         <img src="/202new/image/eec5799acf1fe30d813b4401c1dac7e8.png" alt="移动端驾驶舱" loading="lazy" className="w-full h-full object-cover" />
+                         <img src={import.meta.env.BASE_URL + "image/eec5799acf1fe30d813b4401c1dac7e8.png"} alt="移动端驾驶舱" loading="lazy" className="w-full h-full object-cover" />
                          <div className="absolute inset-0 bg-indigo-900/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                            <span className="bg-white/10 backdrop-blur-md text-white px-3 py-1.5 rounded-full text-xs font-bold border border-white/20">点击访问移动端</span>
                          </div>
@@ -947,7 +959,7 @@ const App = () => {
               </div>
               <div className="rounded-[32px] overflow-hidden shadow-xl border border-slate-100 bg-white">
                 <img 
-                  src="/202new/image/微信图片_2026-02-02_210616_620.png" 
+                  src={import.meta.env.BASE_URL + "image/ip_family_optimized.jpg"} 
                   alt="IP家族长图" 
                   className="w-full h-auto block"
                 />
@@ -962,10 +974,10 @@ const App = () => {
               </div>
               <div className="rounded-[32px] overflow-hidden shadow-xl border border-slate-100 bg-black aspect-video relative group">
                 <video 
-                  src="/202new/video/2.mp4" 
+                  src={import.meta.env.BASE_URL + "video/2_optimized.mp4"} 
                   controls 
                   className="w-full h-full object-cover"
-                  poster="/202new/image/video-poster-placeholder.png" // 可选：添加封面图
+                  poster={import.meta.env.BASE_URL + "image/video-poster-placeholder.png"} // 可选：添加封面图
                 >
                   您的浏览器不支持视频播放。
                 </video>
@@ -1021,7 +1033,7 @@ const App = () => {
               <div className="w-full md:w-2/3">
                 <div className="aspect-video bg-slate-800/50 rounded-2xl overflow-hidden border border-white/10 shadow-2xl flex items-center justify-center relative backdrop-blur-sm">
                   <img 
-                      src="/202new/image/1d8057d625a906bbc2e3a6660be207ab.png" 
+                      src={import.meta.env.BASE_URL + "image/1d8057d625a906bbc2e3a6660be207ab.png"} 
                       alt="运营效果展示" 
                       loading="lazy"
                       className="w-full h-full object-contain p-2"
@@ -1034,7 +1046,7 @@ const App = () => {
               <div className="w-full md:w-1/3">
                 <div className="aspect-[9/16] bg-slate-800/50 rounded-2xl overflow-hidden border border-white/10 shadow-2xl flex items-center justify-center relative backdrop-blur-sm">
                   <img 
-                    src="/202new/image/246f8d254afcdecd35a289c87a616e5c.png" 
+                    src={import.meta.env.BASE_URL + "image/246f8d254afcdecd35a289c87a616e5c.png"} 
                     alt="交互界面展示" 
                     className="w-full h-full object-contain p-2"
                   />
