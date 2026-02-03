@@ -142,6 +142,7 @@ const App = () => {
   const [activeSection, setActiveSection] = React.useState('');
   const [showGaodeModal, setShowGaodeModal] = React.useState(false);
   const [showExcelModal, setShowExcelModal] = React.useState(false);
+  const [showArchModal, setShowArchModal] = React.useState(false);
 
   React.useEffect(() => {
     const observer = new IntersectionObserver(
@@ -388,7 +389,10 @@ const App = () => {
             </div>
             
             <div className="lg:col-span-5 sticky top-32">
-              <div className="bg-slate-50 rounded-[32px] p-6 border border-slate-200 shadow-xl">
+              <div 
+                className="bg-slate-50 rounded-[32px] p-6 border border-slate-200 shadow-xl cursor-pointer hover:shadow-2xl transition-all group"
+                onClick={() => setShowArchModal(true)}
+              >
                 <div className="grid grid-cols-4 gap-2 mb-4">
                   {[
                     import.meta.env.BASE_URL + 'image/0c518697542887c4c842bd55ec6f01f9.jpg',
@@ -1105,6 +1109,57 @@ const App = () => {
                    ))}
                  </tbody>
                </table>
+             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Arch Modal */}
+      {showArchModal && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-10">
+          <div 
+            className="absolute inset-0 bg-slate-900/95 backdrop-blur-sm" 
+            onClick={() => setShowArchModal(false)}
+          />
+          <div className="relative z-10 w-full max-w-7xl max-h-[90vh] flex flex-col">
+             <button 
+               onClick={() => setShowArchModal(false)}
+               className="absolute top-4 right-4 md:right-0 md:-top-12 text-white/70 hover:text-white transition-colors z-50 bg-black/20 md:bg-transparent p-2 rounded-full backdrop-blur-md md:backdrop-blur-none"
+             >
+               <X size={32} />
+             </button>
+             
+             <div className="flex-1 overflow-y-auto rounded-[32px] md:pr-2">
+               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start pb-10">
+                 {/* Mobile Images Grid */}
+                 <div className="lg:col-span-5 grid grid-cols-2 gap-4">
+                    {[
+                      import.meta.env.BASE_URL + 'image/0c518697542887c4c842bd55ec6f01f9.jpg',
+                      import.meta.env.BASE_URL + 'image/2-1.png',
+                      import.meta.env.BASE_URL + 'image/2f0940dc11c58bf3a57634678ec7dee0.jpg',
+                      import.meta.env.BASE_URL + 'image/e8a91d5c8c3b6e0a9e53d83e7cc4d288.jpg'
+                    ].map((src, index) => (
+                      <div key={index} className="rounded-2xl overflow-hidden shadow-2xl border border-white/10 bg-slate-800/50">
+                        <img src={src} alt={`展示图${index + 1}`} className="w-full h-auto block" />
+                      </div>
+                    ))}
+                 </div>
+
+                 {/* PC Image */}
+                 <div className="lg:col-span-7 flex flex-col gap-6 sticky top-0">
+                   <div className="rounded-2xl overflow-hidden shadow-2xl border border-white/10 bg-slate-800/50">
+                     <img 
+                       src={import.meta.env.BASE_URL + "image/4991f55ea85abc50aa6a75c6effb763f.png"} 
+                       alt="PC端展示位" 
+                       className="w-full h-auto block" 
+                     />
+                   </div>
+                   <div className="text-center bg-white/5 rounded-2xl p-6 backdrop-blur-sm border border-white/10">
+                     <h3 className="text-2xl font-black text-white mb-2">多端协同架构</h3>
+                     <p className="text-slate-400 font-medium">构建“一个入口，调度多类智能体”的完整生态体系</p>
+                   </div>
+                 </div>
+               </div>
              </div>
           </div>
         </div>
