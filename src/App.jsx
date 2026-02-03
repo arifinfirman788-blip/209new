@@ -308,6 +308,9 @@ const App = () => {
                   <span className="font-bold text-slate-900">2400万元</span>
                 </div>
               </div>
+              <p className="text-xs text-slate-400 mt-4 leading-relaxed font-medium">
+                *根据不完全统计，华创云信于AI上2025总投入已达1.4亿
+              </p>
             </div>
 
             {/* 研发团队 */}
@@ -316,7 +319,7 @@ const App = () => {
                 <div className="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center">
                   <Users size={24} />
                 </div>
-                <h4 className="text-xl font-black text-slate-900">研发团队</h4>
+                <h4 className="text-xl font-black text-slate-900">贵阳集中研发团队</h4>
               </div>
               <div className="flex items-end gap-4 mb-6">
                 <div>
