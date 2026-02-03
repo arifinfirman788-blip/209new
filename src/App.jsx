@@ -1154,10 +1154,6 @@ const App = () => {
                        className="w-full h-auto block" 
                      />
                    </div>
-                   <div className="text-center bg-white/5 rounded-2xl p-6 backdrop-blur-sm border border-white/10">
-                     <h3 className="text-2xl font-black text-white mb-2">多端协同架构</h3>
-                     <p className="text-slate-400 font-medium">构建“一个入口，调度多类智能体”的完整生态体系</p>
-                   </div>
                  </div>
                </div>
              </div>
