@@ -395,7 +395,7 @@ const App = () => {
               >
                 <div className="grid grid-cols-4 gap-2 mb-4">
                   {[
-                    import.meta.env.BASE_URL + 'image/0c518697542887c4c842bd55ec6f01f9.jpg',
+                    import.meta.env.BASE_URL + 'image/f4bab413fd5144e5e01246d33823e5ce.jpg',
                     import.meta.env.BASE_URL + 'image/2-1.png',
                     import.meta.env.BASE_URL + 'image/2f0940dc11c58bf3a57634678ec7dee0.jpg',
                     import.meta.env.BASE_URL + 'image/e8a91d5c8c3b6e0a9e53d83e7cc4d288.jpg'
@@ -1134,7 +1134,7 @@ const App = () => {
                  {/* Mobile Images Grid */}
                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full">
                     {[
-                      import.meta.env.BASE_URL + 'image/0c518697542887c4c842bd55ec6f01f9.jpg',
+                      import.meta.env.BASE_URL + 'image/f4bab413fd5144e5e01246d33823e5ce.jpg',
                       import.meta.env.BASE_URL + 'image/2-1.png',
                       import.meta.env.BASE_URL + 'image/2f0940dc11c58bf3a57634678ec7dee0.jpg',
                       import.meta.env.BASE_URL + 'image/e8a91d5c8c3b6e0a9e53d83e7cc4d288.jpg'
