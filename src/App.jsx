@@ -138,6 +138,195 @@ const DataCard = ({ value, label, subtext, icon: Icon, color = "text-indigo-600"
   </div>
 );
 
+const InfographicSection = ({ id }) => (
+  <section id={id} className="mb-32 pt-10 scroll-mt-24">
+    {/* Header */}
+    <div className="bg-slate-50 text-slate-900 p-8 md:p-16 rounded-[32px] mb-16 text-center relative overflow-hidden border-4 border-slate-900">
+        <div className="relative z-10">
+          <h2 className="text-4xl md:text-7xl font-black mb-6 tracking-tighter leading-tight uppercase">
+            Claude “血洗华尔街” <br/>
+            <span className="text-indigo-600">始末与2026 AI趋势推演</span>
+          </h2>
+          <div className="w-full h-1 bg-slate-900 my-8"></div>
+          <p className="text-xl md:text-3xl font-black tracking-widest uppercase">10天蒸发8300亿美元背后的逻辑链与未来展望</p>
+        </div>
+        <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-100 rounded-full blur-[80px] -mr-32 -mt-32 mix-blend-multiply"></div>
+        <div className="absolute bottom-0 left-0 w-64 h-64 bg-purple-100 rounded-full blur-[80px] -ml-32 -mb-32 mix-blend-multiply"></div>
+    </div>
+
+    {/* 01 Timeline */}
+    <div className="mb-24">
+        <h3 className="text-3xl font-black text-slate-900 mb-10 flex items-center gap-4">
+            <span className="text-slate-300 text-4xl">01</span> 事件始末：Anthropic的三记重拳
+        </h3>
+        <div className="grid md:grid-cols-3 gap-8 relative">
+            {/* Connector Line (Desktop) */}
+            <div className="hidden md:block absolute top-6 left-[16%] right-[16%] h-0.5 bg-slate-200 -z-10"></div>
+
+            {/* Item 1 */}
+            <div className="relative group">
+                <div className="bg-blue-500 text-white font-bold text-center py-3 rounded-xl mb-6 shadow-lg shadow-blue-200 transform group-hover:-translate-y-1 transition-transform">1月12日</div>
+                <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm text-center h-full">
+                    <h4 className="text-xl font-black text-slate-900 mb-3">Claude Cowork发布</h4>
+                    <ul className="text-slate-500 text-sm font-medium space-y-1">
+                        <li>桌面AI助手</li>
+                        <li>可操控电脑、调用工具</li>
+                    </ul>
+                </div>
+            </div>
+
+            {/* Item 2 */}
+            <div className="relative group">
+                <div className="bg-emerald-500 text-white font-bold text-center py-3 rounded-xl mb-6 shadow-lg shadow-emerald-200 transform group-hover:-translate-y-1 transition-transform">1月30日</div>
+                <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm text-center h-full">
+                    <h4 className="text-xl font-black text-slate-900 mb-3">11个专业插件</h4>
+                    <ul className="text-slate-500 text-sm font-medium space-y-1">
+                        <li>法律/财务/销售领域</li>
+                        <li>法律插件冲击WestLaw</li>
+                    </ul>
+                </div>
+            </div>
+
+            {/* Item 3 */}
+            <div className="relative group">
+                <div className="bg-purple-500 text-white font-bold text-center py-3 rounded-xl mb-6 shadow-lg shadow-purple-200 transform group-hover:-translate-y-1 transition-transform">2月5日</div>
+                <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm text-center h-full">
+                    <h4 className="text-xl font-black text-slate-900 mb-3">Claude Opus 4.6</h4>
+                    <ul className="text-slate-500 text-sm font-medium space-y-1">
+                        <li>基础模型升级</li>
+                        <li>AI"更聪明"</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {/* 02 SaaS Pillars */}
+    <div className="mb-24">
+        <h3 className="text-3xl font-black text-slate-900 mb-10 flex items-center gap-4">
+            <span className="text-slate-300 text-4xl">02</span> 底层逻辑：SaaS三大支柱崩塌
+        </h3>
+        <div className="grid md:grid-cols-3 gap-8">
+            {[
+                { 
+                    title: "按席位收费", 
+                    old: { title: "传统模式", desc: "100员工=100账号\n年费数千美元/人" },
+                    new: { title: "AI冲击", desc: "按使用量付费\n月付100美元", color: "bg-red-500 shadow-red-200" }
+                },
+                { 
+                    title: "复杂UI壁垒", 
+                    old: { title: "传统模式", desc: "复杂界面=高切换成本\n用户被锁定" },
+                    new: { title: "AI冲击", desc: "零UI操作\n自然语言指令", color: "bg-orange-500 shadow-orange-200" }
+                },
+                { 
+                    title: "功能封闭性", 
+                    old: { title: "传统模式", desc: "封闭生态\n专有格式绑定" },
+                    new: { title: "AI冲击", desc: "MCP开放协议\n自由调用工具", color: "bg-red-500 shadow-red-200" }
+                }
+            ].map((item, i) => (
+                <div key={i} className="flex flex-col h-full">
+                    <h4 className="text-center font-bold text-slate-900 mb-6">{item.title}</h4>
+                    <div className="flex items-center gap-2 flex-1">
+                        <div className="flex-1 bg-slate-50 p-4 rounded-xl border border-slate-100 text-center h-full flex flex-col justify-center">
+                            <div className="text-slate-400 text-xs font-bold mb-2">{item.old.title}</div>
+                            <div className="text-slate-600 text-xs font-medium whitespace-pre-line leading-relaxed">{item.old.desc}</div>
+                        </div>
+                        <div className="text-slate-300">
+                            <ArrowRight size={20} />
+                        </div>
+                        <div className={`flex-1 ${item.new.color} p-4 rounded-xl text-white text-center shadow-lg h-full flex flex-col justify-center`}>
+                            <div className="text-white/80 text-xs font-bold mb-2">{item.new.title}</div>
+                            <div className="text-white text-xs font-bold whitespace-pre-line leading-relaxed">{item.new.desc}</div>
+                        </div>
+                    </div>
+                </div>
+            ))}
+        </div>
+    </div>
+
+    {/* 03 Inevitability */}
+    <div className="mb-24">
+        <h3 className="text-3xl font-black text-slate-900 mb-10 flex items-center gap-4">
+            <span className="text-slate-300 text-4xl">03</span> 必然性分析：2025年埋下的伏笔 (灰犀牛而非黑天鹅)
+        </h3>
+        <div className="grid md:grid-cols-12 gap-6">
+            <div className="md:col-span-7 bg-blue-50/50 p-8 rounded-[32px] border border-blue-100">
+                <div className="text-blue-600 font-bold text-center mb-6">【三个变量】</div>
+                <div className="grid grid-cols-3 gap-4">
+                    {[
+                        { title: "商业化压力", desc: "AI泡沫质疑\n1.4万亿基础设施投入\n95%项目未盈利" },
+                        { title: "模型压缩技术", desc: "大模型→小模型\n本地部署成为可能\n端侧算力160TOPS" },
+                        { title: "MCP协议成熟", desc: "模型上下文协议\nAI自由调用工具\n标准化接口" }
+                    ].map((item, i) => (
+                        <div key={i} className="bg-blue-500 p-4 rounded-xl text-center shadow-lg shadow-blue-200">
+                            <div className="text-white font-bold mb-2 text-sm">{item.title}</div>
+                            <div className="text-blue-100 text-[10px] leading-relaxed whitespace-pre-line">{item.desc}</div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+            
+            <div className="md:col-span-1 flex items-center justify-center text-slate-400 font-black text-2xl">
+                + <span className="text-sm ml-2 text-slate-300 font-bold">叠加</span>
+            </div>
+
+            <div className="md:col-span-4 bg-orange-50/50 p-8 rounded-[32px] border border-orange-100">
+                <div className="text-orange-600 font-bold text-center mb-6">【两个常量】</div>
+                <div className="space-y-4">
+                    <div className="bg-orange-400 p-4 rounded-xl text-center shadow-lg shadow-orange-200">
+                        <div className="text-white font-bold mb-1">AI算法不断优化</div>
+                        <div className="text-orange-50 text-xs">AI越来越"聪明" 能力持续进化</div>
+                    </div>
+                    <div className="bg-orange-400 p-4 rounded-xl text-center shadow-lg shadow-orange-200">
+                        <div className="text-white font-bold mb-1">年初卡位战</div>
+                        <div className="text-orange-50 text-xs">科技行业规律 抢占年初话语权 =全年主导权</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {/* 04 Prediction */}
+    <div>
+        <h3 className="text-3xl font-black text-slate-900 mb-10 flex items-center gap-4">
+            <span className="text-slate-300 text-4xl">04</span> 2026年关键议题推演
+        </h3>
+        <div className="grid md:grid-cols-2 gap-8">
+            <div className="bg-gradient-to-br from-purple-600 to-indigo-600 p-8 rounded-[32px] text-white shadow-xl shadow-purple-200 flex items-center gap-6">
+                <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center font-black text-2xl shrink-0">1</div>
+                <div>
+                    <h4 className="text-2xl font-black mb-2">AI员工大规模出现</h4>
+                    <p className="text-white/80 font-medium">从Claude开始，AI巨头跟进<br/>实际工作能力普遍跃迁</p>
+                </div>
+            </div>
+            <div className="bg-gradient-to-br from-emerald-500 to-teal-500 p-8 rounded-[32px] text-white shadow-xl shadow-emerald-200 flex items-center gap-6">
+                <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center font-black text-2xl shrink-0">2</div>
+                <div>
+                    <h4 className="text-2xl font-black mb-2">倒逼公司开始新型的组织变革</h4>
+                    <p className="text-white/80 font-medium">"人+AI"全面协作<br/>工作流程、考核方式重新设计</p>
+                </div>
+            </div>
+        </div>
+    </div>
+  </section>
+);
+
+const ClosingSection = ({ id }) => (
+  <section id={id} className="py-32 min-h-[50vh] bg-[#FDFDFF] text-slate-900 rounded-[48px] text-center px-6 relative overflow-hidden mt-32 border-4 border-slate-900 scroll-mt-24">
+    <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop')] opacity-[0.03] bg-cover bg-center mix-blend-overlay"></div>
+    <div className="relative z-10">
+      <div className="inline-block px-6 py-2 bg-slate-900 text-white rounded-none text-lg font-black mb-10 tracking-[0.2em] uppercase transform -rotate-2">
+        2026 决战之年
+      </div>
+      <h2 className="text-5xl md:text-8xl font-black tracking-tighter mb-10 leading-[0.9]">
+        都不要再做<br/>
+        <span className="text-indigo-600 block mt-4">赫赫却无名之人</span>
+      </h2>
+      <div className="w-32 h-3 bg-slate-900 mx-auto"></div>
+    </div>
+  </section>
+);
+
 const App = () => {
   const [activeSection, setActiveSection] = React.useState('');
   const [showGaodeModal, setShowGaodeModal] = React.useState(false);
@@ -153,7 +342,11 @@ const App = () => {
           }
         });
       },
-      { threshold: 0.2 }
+      { 
+        root: null,
+        rootMargin: '-40% 0px -40% 0px', // 调整触发区域：屏幕中间20%区域
+        threshold: 0 
+      }
     );
 
     document.querySelectorAll('section[id]').forEach((section) => {
@@ -164,27 +357,29 @@ const App = () => {
   }, []);
 
   const navItems = [
+    { id: 'trend', label: '趋势推演' },
     { id: 'overview', label: '组织投入' },
     { id: 'arch', label: '组网架构' },
     { id: 'visitor', label: '游客端' },
     { id: 'operation', label: '运营组织' },
     { id: 'enterprise', label: '企业端' },
     { id: 'gov', label: '政府端' },
-    { id: 'ip', label: 'IP生态' }
+    { id: 'ip', label: 'IP生态' },
+    { id: 'vision', label: '决战之年' }
   ];
 
   return (
     <div className="min-h-screen bg-[#FDFDFF] text-slate-900 font-sans selection:bg-indigo-100 selection:text-indigo-900">
       {/* Header / Nav */}
-      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-2xl border-b border-slate-100 px-6 py-4 transition-all duration-300">
+      <header className="sticky top-0 z-50 bg-white border-b-4 border-slate-900 px-6 py-4 transition-all duration-300">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-indigo-200">
+            <div className="w-10 h-10 bg-slate-900 rounded-none flex items-center justify-center text-white shadow-none">
               <Cpu size={24} />
             </div>
-            <span className="font-black text-2xl tracking-tighter text-slate-900 uppercase">AI <span className="text-indigo-600">Product</span></span>
+            <span className="font-black text-2xl tracking-tighter text-slate-900 uppercase">AI <span className="text-indigo-600">Report</span></span>
           </div>
-          <nav className="hidden xl:flex gap-6 text-sm font-black text-slate-400 tracking-[0.1em]">
+          <nav className="hidden xl:flex gap-6 text-sm font-black text-slate-900 tracking-[0.1em]">
             {navItems.map((item) => (
               <a 
                 key={item.id}
@@ -195,7 +390,7 @@ const App = () => {
                 {activeSection === item.id && (
                   <motion.div 
                     layoutId="activeNav"
-                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-indigo-600 rounded-full"
+                    className="absolute -bottom-1 left-0 right-0 h-1 bg-indigo-600 rounded-none"
                   />
                 )}
               </a>
@@ -208,6 +403,10 @@ const App = () => {
       </header>
 
       <main className="max-w-7xl mx-auto px-6">
+        {/* Part 1: Infographic */}
+        <InfographicSection id="trend" />
+
+        {/* Part 2: Main Content */}
         {/* Hero Section */}
         <section className="relative h-screen flex flex-col items-center justify-center overflow-hidden">
           <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1635350736475-c8cef4b21906?q=80&w=2940&auto=format&fit=crop')] bg-cover bg-center opacity-[0.03] mix-blend-overlay"></div>
@@ -219,16 +418,14 @@ const App = () => {
               <div className="inline-block px-6 py-2 bg-indigo-50 text-indigo-600 rounded-full text-xs font-black uppercase tracking-[0.3em] mb-10">
                 Product Design Strategic Report
               </div>
-              <h1 className="text-6xl md:text-9xl font-black text-slate-900 mb-10 tracking-tighter leading-[0.85] text-center">
+              <h1 className="text-5xl md:text-8xl font-black text-slate-900 mb-10 tracking-tighter leading-[1] text-center">
                 <span>
-                  黄小西
+                  不谦虚了：
                 </span>
                 <br />
-                <div className="flex justify-center mt-2">
-                  <span className="px-2 sm:px-2 md:px-3 bg-indigo-600 text-white rounded-lg py-0.5 sm:py-1 md:py-2">
-                    AI应用生态
-                  </span>
-                </div>
+                <span className="text-indigo-600">
+                  我们的AI可以出门了
+                </span>
               </h1>
 
               {/* 3点汇报重点 */}
@@ -996,6 +1193,9 @@ const App = () => {
             </div>
           </div>
         </Section>
+
+        {/* Part 3: Closing */}
+        <ClosingSection id="vision" />
 
       </main>
 
