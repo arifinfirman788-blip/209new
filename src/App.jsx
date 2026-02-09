@@ -425,7 +425,7 @@ const App = () => {
               </div>
               <h1 className="text-5xl md:text-8xl font-black text-slate-900 mb-10 tracking-tighter leading-[1] text-center">
                 <span>
-                  不谦虚了：
+                  谦虚点：
                 </span>
                 <br />
                 <span className="text-indigo-600">
