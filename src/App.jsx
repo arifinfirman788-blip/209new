@@ -144,7 +144,12 @@ const InfographicSection = ({ id }) => (
     <div className="bg-slate-50 text-slate-900 p-8 md:p-16 rounded-[32px] mb-16 text-center relative overflow-hidden border-4 border-slate-900">
         <div className="relative z-10">
           <h2 className="text-4xl md:text-7xl font-black mb-6 tracking-tighter leading-tight uppercase">
-            Claude “血洗华尔街” <br/>
+            <span className="relative inline-block">
+              <span className="absolute -top-5 -left-2 md:-top-8 md:-left-6 bg-rose-600 text-white text-sm md:text-2xl px-3 py-1 -rotate-12 border-2 border-slate-900 shadow-[4px_4px_0px_0px_rgba(15,23,42,1)] z-20">
+                杀疯了
+              </span>
+              Claude “血洗华尔街”
+            </span> <br/>
             <span className="text-indigo-600">始末与2026 AI趋势推演</span>
           </h2>
           <div className="w-full h-1 bg-slate-900 my-8"></div>
